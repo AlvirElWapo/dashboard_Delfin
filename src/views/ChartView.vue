@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- Breadcrumb -->
-    <Breadcrumb breadcrumb="charts" />
+    <Breadcrumb breadcrumb="DASHBOARD INFORMATIVO" />
 
     <div class="mt-4">
       <h4 class="text-gray-600">Charts</h4>
@@ -18,10 +17,11 @@
             gap-3
           "
         >
-          <LineChart />
+          <!-- <LineChart /> -->
           <DonutChart />
-          <BarChart />
-          <AreaChart />
+          <DonutChartDates/>
+          <!-- <BarChart /> -->
+          <!-- <AreaChart /> -->
         </div>
       </div>
     </div>
@@ -31,6 +31,7 @@
 <script setup lang="ts">
 import Breadcrumb from "../partials/Breadcrumb.vue";
 import DonutChart from "@/components/charts/DonutChart.vue";
+import DonutChartDates from "@/components/charts/DonutChart2.vue";
 import LineChart from "@/components/charts/LineChart.vue";
 import BarChart from "../components/charts/BarChart.vue";
 import AreaChart from "../components/charts/AreaChart.vue";

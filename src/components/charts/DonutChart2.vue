@@ -18,11 +18,11 @@ const series = ref([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get("http://localhost:1234/areas");
+    const response = await axios.get("http://localhost:1234/fechas");
     const data = response.data;
-
-    const labels = data.map((item) => item.AREA);
-    const dataPoints = data.map((item) => item.NoDeAreas);
+    console.log(data);
+    const labels = data.map((item) => item.Dia);
+    const dataPoints = data.map((item) => item.NoDias);
 
     series.value = dataPoints;
     options.value = {

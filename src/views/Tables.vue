@@ -1,8 +1,6 @@
 <template>
   <div>
-    <!-- Breadcrumb -->
     <Breadcrumb breadcrumb="Tables" />
-
     <div class="mt-4">
       <h4 class="text-gray-600">Simple Table</h4>
 
@@ -14,12 +12,12 @@
                 <th
                   class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800"
                 >
-                  City
+                  TITULO DE CONFERENCIA 
                 </th>
                 <th
                   class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800"
                 >
-                  Total orders
+                  PARTICIPANTES
                 </th>
               </tr>
             </thead>
