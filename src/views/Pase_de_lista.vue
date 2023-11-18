@@ -82,23 +82,17 @@
                 >
                   Id's Integrantes 
                 </th>
-                <th
-                  class="
-                    px-6
-                    py-3
-                    text-xs
-                    font-medium
-                    leading-4
-                    tracking-wider
-                    text-left text-gray-500
-                    uppercase
-                    border-b border-gray-200
-                    bg-gray-50
-                  "
-                >
-                  Numero De Integrantes
-                </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+
+
+
+<th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+  Asistencia
+</th>
+
+
+
+
+
               </tr>
             </thead>
 
@@ -121,50 +115,47 @@
 
 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
   <div class="text-sm font-medium leading-5 text-gray-900">
-    <!-- Iterate through each ID in the ID_pons array -->
     <div v-for="(id, index) in u.ID_pons" :key="index">
       {{ id }}
-      <!-- Add a line break after each ID, excluding the last one -->
       <span v-if="index !== u.ID_pons.length - 1"><br /></span>
     </div>
   </div>
 </td>
 
-<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+
+  <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
   <div class="text-sm font-medium leading-5 text-gray-900">
-    {{ u.NoPonentes }}
+    <template v-for="(ponente, index) in u.Ponentes">
+      <label class="switch" :for="`switch-${index}`">
+        <input
+          type="checkbox"
+          :id="`switch-${index}`"
+          v-model="asistenciaValues[index]"
+          :value="'si'"
+        />
+        <span
+          class="slider"
+          :class="{ 'slider-yes': asistenciaValues[index] === 'si', 'slider-no': asistenciaValues[index] === 'no' }"
+        ></span>
+      </label>
+      {{ ponente.Nombre }}
+      <br />
+    </template>
   </div>
 </td>
-
-                <td
-                  class="
-                    px-6
-                    py-4
-                    text-sm
-                    font-medium
-                    leading-5
-                    text-right
-                    border-b border-gray-200
-                    whitespace-nowrap
-                  "
-                >
-                  <div class="flex justify-around">
-                    <span class="text-yellow-500 flex justify-center">
-                      <!-- Add your edit and delete buttons here -->
-                    </span>
-                  </div>
-                </td>
-              </tr>
+          </tr>
             </tbody>
           </table>
         </div>
       </div>
-    </div>
+      </div>
   </div>
+    <button @click="printAsistencia" class="btn btn-info">Registrar Asistencia</button>
+
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
+  <script setup lang="ts">
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 
 interface User {
@@ -187,6 +178,12 @@ onMounted(async () => {
   }
 });
 
+const asistenciaValues = computed(() => {
+  return users.value.length > 0
+    ? users.value[0].Ponentes.map(() => false) // Default all to false
+    : [];
+});
+
 const fetchData = async () => {
   try {
     if (selectedIdTra.value) {
@@ -205,7 +202,91 @@ const fetchData = async () => {
     console.error('Error fetching user data:', error);
   }
 };
+
+const printAsistencia = async () => {
+  const flattenedValues = asistenciaValues.value;
+  const stringValues = flattenedValues.map(value => (value ? 'si' : 'no'));
+
+  try {
+    if (selectedIdTra.value) {
+      const response = await axios.post('http://localhost:1234/asistencia', {
+        Id_Trab: selectedIdTra.value,
+        Asistencia: stringValues,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Server Response:', response.data);
+    } else {
+      console.error('No selectedIdTra to send with the request.');
+    }
+  } catch (error) {
+    console.error('Error sending data to server:', error);
+  }
+};
+
 </script>
 
 
+<style scoped>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
 
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+    background-color:#f36201 ;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: attr(data-text);
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: #333;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider:before {
+  background-color: #509c90;
+  content: "Si";
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+input:focus + .slider:before {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+.slider-no:before {
+  content: "No";
+}
+
+</style>

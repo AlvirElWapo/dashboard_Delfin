@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
+import Busq_por_sede from "../views/busq_por_sede.vue";
 import Forms from "../views/Forms.vue";
 import Tables from "../views/Tables.vue";
 import UIElements from "../views/UIElements.vue";
@@ -9,6 +10,9 @@ import Chart from "../views/ChartView.vue";
 import Card from "../views/CardView.vue";
 import Blank from "../views/BlankView.vue";
 import NotFound from "../views/NotFound.vue";
+import Cronometro from "../views/cronometro.vue";
+import Agregar_Moderador from "../views/Agregar_Moderador.vue";
+import Pase_De_Lista from "../views/Pase_de_lista.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -21,6 +25,26 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/busq_por_sede",
+    name: "Busq_por_sede",
+    component: Busq_por_sede,
+  },
+  {
+    path: "/cronometro",
+    name: "cronometro",
+    component: Cronometro,
+  },
+  {
+    path: "/agregar_moderador",
+    name: "agregar_moderador",
+    component: Agregar_Moderador,
+  },
+  {
+    path: "/pase_de_lista",
+    name: "pase_de_lista",
+    component: Pase_De_Lista,
   },
   {
     path: "/forms",
