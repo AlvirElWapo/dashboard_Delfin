@@ -7,28 +7,14 @@
 
       <div class="mt-4">
         <div
-          class="w-full max-w-sm overflow-hidden bg-white border rounded-md shadow-md"
+          class="w-full max-w-sm  bg-white border rounded-md shadow-md"
         >
           <form>
             <div
-              class="flex items-center justify-between px-5 py-3 text-gray-700 border-b"
+              class="titleForm flex items-center justify-between px-5 py-3 text-gray-700 border-b"
             >
               <h3 class="text-sm">Moderador Emergente</h3>
-              <button>
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="4"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
+  
             </div>
 
             <div class="px-5 py-6 text-gray-700 bg-gray-200 border-b">
@@ -116,16 +102,16 @@
             </div>
 
 
-            <div class="flex items-center justify-between px-5 py-3">
+            <div class="titleForm flex items-center justify-between px-5 py-3">
               <button
                 class="px-3 py-1 text-sm text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 class="px-3 py-1 text-sm text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none"
               >
-                Save
+                Guardar
               </button>
             </div>
 
@@ -159,3 +145,24 @@ const register = () => {
   console.log('Registered: ', data)
 }
 </script>
+
+<style scoped>
+form{
+  width: 75vw;
+}
+
+.titleForm{
+  color: var(--white);
+  background-color: var(--main-blue);
+  border-radius: 5px;
+}
+
+.bg-indigo-600{
+    background-color: var(--main-orange)
+  }
+
+  .bg-indigo-600:hover{
+    opacity: 0.8;
+    scale: 1.04;
+  }
+</style>

@@ -3,6 +3,7 @@ import VueApexCharts from "vue3-apexcharts";
 import DashboardLayout from "./components/DashboardLayout.vue";
 import EmptyLayout from "./components/EmptyLayout.vue";
 import "./assets/tailwind.css";
+import "./assets/scss/main.scss"
 
 import App from "./App.vue";
 import router from "./router";
