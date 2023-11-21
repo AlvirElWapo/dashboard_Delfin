@@ -1,21 +1,19 @@
 <template>
-  <div>
-    <h5 class="text-lg font-semibold mb-2">Cronometro vista para agregar</h5>
-
+  <div class="container">
     <div class="mb-3">
       <label for="timerSelect" class="mr-2">Selecciona el Tiempo:</label>
-      <select id="timerSelect" v-model="selectedTime">
-          <option value="720">12 minutos</option>
-          <option value="1">Prueba</option>
+      <select id="timerSelect" placeholder="Arriba los wiwis" v-model="selectedTime">
+        <option value="720">12 minutos</option>
+        <option value="1">Prueba</option>
       </select>
     </div>
 
     <div class="font-medium text-2xl">{{ formattedTime }}</div>
 
-    <div class="mt-3 space-x-2">
-      <button @click="startChronometer" :disabled="isRunning" class="btn-primary">Start</button>
-      <button @click="stopChronometer" :disabled="!isRunning" class="btn-danger">Stop</button>
-      <button @click="resetChronometer" :disabled="isRunning" class="btn-secondary">Reset</button>
+    <div class="mt-3 space-x-8">
+      <button @click="startChronometer" :disabled="isRunning" class="button btn-primary">Iniciar</button>
+      <button @click="stopChronometer" :disabled="!isRunning" class="button btn-danger">Parar</button>
+      <button @click="resetChronometer" :disabled="isRunning" class="button btn-secondary">Reiniciar</button>
     </div>
   </div>
 </template>
@@ -64,7 +62,7 @@ function resetChronometer() {
 }
 
 onMounted(() => {
-  selectedTime.value = 0; 
+  selectedTime.value = 0;
   resetChronometer();
 });
 
@@ -76,31 +74,64 @@ const formattedTime = ref(formatTime(timer.value));
 </script>
 
 <style scoped>
-.btn-primary {
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  transition: all 1s ease;
+}
+
+select{
+  cursor: pointer;
+  border-radius: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0 0.5vw;
+}
+
+.mb-3 {
+  margin-bottom: 6vw;
+  font-size: 25px;
+}
+
+.font-medium {
+  font-size: 150px;
+  margin-bottom: 7vw;
+}
+
+.button {
   background-color: #4caf50;
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background-color: #4caf50;
 }
 
 .btn-danger {
   background-color: #f44336;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .btn-secondary {
   background-color: #008CBA;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+}
+
+.button:hover{
+  scale: 1.1;
+  transition: 0.5s ease;
+  border: 3px solid #ccc;
+  font-weight: bolder
+}
+
+.button:active{
+  scale: 1.2;
+  color: black;
 }
 </style>
 

@@ -206,6 +206,9 @@ const fetchData = async () => {
   }
 };
 </script>
-
-
+<style scoped>
+th.px-6{
+  color: var(--main-blue);
+}
+</style>
 
