@@ -13,6 +13,8 @@ import NotFound from "../views/NotFound.vue";
 import Cronometro from "../views/cronometro.vue";
 import Agregar_Moderador from "../views/Agregar_Moderador.vue";
 import Pase_De_Lista from "../views/Pase_de_lista.vue";
+import Busqueda_Moderador from "../views/Busqueda_Moderador.vue";
+import Pase_De_Lista_Moderador from "../views/Pase_de_lista_mod.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -45,6 +47,16 @@ const routes: Array<RouteRecordRaw> = [
     path: "/pase_de_lista",
     name: "pase_de_lista",
     component: Pase_De_Lista,
+  },
+  {
+    path: "/Pase_de_lista_moderador",
+    name: "Pase_de_lista_moderador",
+    component: Pase_De_Lista_Moderador,
+  },
+  {
+    path: "/busqueda_moderador",
+    name: "busqueda_moderador",
+    component: Busqueda_Moderador,
   },
   {
     path: "/forms",
