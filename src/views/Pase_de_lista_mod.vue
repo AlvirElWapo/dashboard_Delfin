@@ -116,7 +116,8 @@
           <span class="slider" ></span>
         </label>
         Placeholder Text
-        <button @click="logSwitchValue">Log Value</button>
+<!--savepoint-->
+        <button @click="printAsistencia">Log Value</button>
       </div>
     </td>
 
@@ -175,6 +176,31 @@ const fetchData = async () => {
 const logSwitchValue = () => {
   console.log('Switch Value:', switchValue.value);
 };
+
+
+const printAsistencia = async (singleValue) => {
+  const stringValue = singleValue ? 'si' : 'no';
+
+  try {
+    if (selectedIdMod.value) {
+      const response = await axios.post('http://localhost:1234/asistencia_mods', {
+        ID_Mod: selectedIdMod.value,
+        Asistencia: stringValue,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Server Response:', response.data);
+    } else {
+      console.error('No selectedIdTra to send with the request.');
+    }
+  } catch (error) {
+    console.error('Error sending data to server:', error);
+  }
+};
+
 </script>
 
 <style scoped>
