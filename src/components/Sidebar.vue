@@ -60,7 +60,7 @@
         </router-link>
 
 
-        <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+        <router-link v-show="tipoUsuario !== 'Mauro'" class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'pase_de_lista' ? activeClass : inactiveClass]" to="/pase_de_lista">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -81,12 +81,9 @@
         </router-link>
 
 
-
         <p class="pl-4 my-2 text-xs font-semibold mb-4 text-gray-400">
           OPCIONES
         </p>
-
-        
 
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'Chart' ? activeClass : inactiveClass]" to="/charts">
@@ -99,7 +96,7 @@
         </router-link>
 
 
-        <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+        <router-link v-show="tipoUsuario !== 'Mauro'" class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'cronometro' ? activeClass : inactiveClass]" to="/cronometro">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -133,6 +130,7 @@
 import { ref } from "vue";
 import { useSidebar } from "../hooks/useSidebar";
 
+const tipoUsuario = ref("Mauro");
 const { isOpen } = useSidebar();
 const activeClass = ref(
   "bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100"
@@ -140,6 +138,7 @@ const activeClass = ref(
 const inactiveClass = ref(
   "border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
 );
+
 </script>
 
 <style scoped>
