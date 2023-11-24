@@ -12,8 +12,8 @@
 
           </label>
       <select id="idTra" v-model="selectedIdTra" @change="fetchData">
-        <option v-for="idTra in idTraList" :key="idTra.ID_Tra" :value="idTra.ID_Tra">
-        {{ idTra.ID_Tra }}
+        <option v-for="(state, index) in idTraList" :key="index" >
+        {{ state }}
         </option>
       </select>
     </div>
@@ -170,10 +170,15 @@ const idTraList = ref<{ ID_Tra: string }[]>([]);
 const selectedIdTra = ref<string | null>(null);
 
 onMounted(async () => {
-  const idTraResponse = await axios.get<{ ID_Tra: string }[]>('http://localhost:1234/id_tras');
-  idTraList.value = idTraResponse.data.sort((a, b) => a.ID_Tra.localeCompare(b.ID_Tra));
+  try {
+    const response = await axios.get('http://localhost:1234/salas_concluidas');
+    idTraList.value = response.data.completadas;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+  console.log(idTraList.value);
   if (idTraList.value.length > 0) {
-    selectedIdTra.value = idTraList.value[0].ID_Tra;
+    selectedIdTra.value = idTraList.value[0];
     fetchData();
   }
 });

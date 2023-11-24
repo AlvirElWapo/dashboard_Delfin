@@ -1,4 +1,5 @@
-import { createApp } from "vue";
+import {createPinia} from "pinia";
+import {createApp} from "vue";
 import VueApexCharts from "vue3-apexcharts";
 import DashboardLayout from "./components/DashboardLayout.vue";
 import DashboardLayoutMauro from "./components/DashboardLayoutMauro.vue";
@@ -15,4 +16,4 @@ app.component("default-layout", DashboardLayout);
 app.component("mauro-layout", DashboardLayoutMauro);
 app.component("empty-layout", EmptyLayout);
 
-app.use(router).use(VueApexCharts).mount("#app");
+app.use(router).use(VueApexCharts).use(createPinia()).mount("#app");
