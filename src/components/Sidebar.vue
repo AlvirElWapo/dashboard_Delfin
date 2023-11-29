@@ -130,7 +130,7 @@
 import { ref } from "vue";
 import { useSidebar } from "../hooks/useSidebar";
 
-const tipoUsuario = ref("Mauro2");
+const tipoUsuario = ref("otracosa");
 const { isOpen } = useSidebar();
 const activeClass = ref(
   "bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100"

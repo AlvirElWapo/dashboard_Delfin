@@ -51,9 +51,8 @@ Al dar click en el botón <span style="color:green; font-size:2em"><b>Iniciar</b
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
 
-
 const timer = ref(0);
-const selectedTime = ref(5); 
+const selectedTime = ref(50); 
 const isRunning = ref(false);
 const intervalId = ref<number | null>(null);
 
@@ -111,22 +110,26 @@ function stopChronometer_click_button() {
   }
 }
 
+
+import router from '../router/index.ts';
+
+
 function stopChronometer() {
+
   if (isRunning.value) {
     isRunning.value = false;
     clearInterval(intervalId.value);
     intervalId.value = null;
-    axios.post('http://localhost:1234/desactivar_Sala', {ID_tra : selectedIdTra.value})
+
+    axios.post('http://localhost:1234/desactivar_Sala', { ID_tra: selectedIdTra.value })
       .then(response => {
+        return axios.post('http://localhost:1234/concluir_Ponencia', { ID_tra: selectedIdTra.value });
+      })
+      .then(response => {
+      router.push({ name: 'pase_de_lista' });
       })
       .catch(error => {
-        console.error('ERROR DESACTIVANDO SALA:', error);
-      });
-    axios.post('http://localhost:1234/concluir_Ponencia', {ID_tra : selectedIdTra.value})
-      .then(response => {
-      })
-      .catch(error => {
-        console.error('ERROR DESACTIVANDO SALA:', error);
+        console.error('ERROR:', error);
       });
   }
 }
