@@ -90,9 +90,8 @@ export default {
 }
 
 .main_row__login {
-  width: 26.6%;
-
-  height: 100%;
+  width: 21.5vw;
+  height: 9.5vw;
   display: flex;
   flex-direction: column;
   background-color: var(--white);
@@ -150,6 +149,7 @@ export default {
     margin-right: 0.7vw;
     border-radius: 0.3vw;
     font-weight: bold;
+    font-size: 0.8;
 }
 
 .main_row__login___recoverMessage{
@@ -160,7 +160,7 @@ export default {
 
 .main_row__message{
     width: 100%;
-    height: 55%;
+    height: 8vw;
     background-color: var(--white);
     border-radius: 0.3vw;
     font-family: "Raleway", sans-serif;

@@ -21,12 +21,8 @@
     <div class="header_bottom">
       <div class="header_bottom__container">
         <router-link to="/">
-        <img
-          src="@/assets/images/logo.png"
-          alt="logo"
-          class="header_bottom__containerLogo"
-        />
-         </router-link>
+          <img src="@/assets/images/logo.png" alt="logo" class="header_bottom__containerLogo" />
+        </router-link>
         <div class="header_bottom__containerMenu">
           <div class="menuItem header_bottom__containerMenu___Inicio" @click="mainpage">INICIO</div>
           <div class="menuItem header_bottom__containerMenu___Inicio">PROGRAMA</div>
@@ -47,15 +43,12 @@
 
 export default {
   methods: {
-    async mainpage()
-    {
-      try 
-      {
+    async mainpage() {
+      try {
         //const response = await axios.post('/login', this.userData);
         //console.log(response);
-        this.$router.push({name:"mainpage"});
-      } catch (error) 
-      {
+        this.$router.push({ name: "mainpage" });
+      } catch (error) {
         console.log(error);
       }
     },
@@ -64,6 +57,7 @@ export default {
 </script>
 
 <style scoped>
+
 .main_header {
   background-color: var(--white);
   height: 14.4vh;
@@ -85,14 +79,14 @@ export default {
 .header_top__icons {
   align-items: center;
   display: flex;
-  font-size: 0.875rem;
+  font-size: 0.8vw;
   height: 100%;
   justify-content: space-around;
   margin-right: 9vw;
   width: 20.9vw;
 }
 
-.header_bottom{
+.header_bottom {
   display: flex;
   height: 9.4vh;
   justify-content: center;
@@ -100,7 +94,7 @@ export default {
   width: 100%;
 }
 
-.header_bottom__container{
+.header_bottom__container {
   align-items: center;
   display: flex;
   height: 100%;
@@ -108,33 +102,37 @@ export default {
   width: 81.25vw;
 }
 
-.header_bottom__containerMenu{
+.header_bottom__containerLogo{
+ width: 11.7vw;
+}
+
+.header_bottom__containerMenu {
   width: 65.14vw;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  font-size: 0.86rem;
+  font-size: 0.8vw;
   font-weight: bolder;
   color: var(--header-blue);
 }
 
-.menuItem{
-  padding: 2rem 1rem;
+.menuItem {
+  padding: 1.6vw 0.8vw;
   transition: ease;
   cursor: pointer;
 }
 
-.menuItem:hover{
+.menuItem:hover {
   color: var(--main-orange);
 }
 
-.icon{
+.icon {
   cursor: pointer;
 }
 
-.header_top__icons___mailIcon, 
-.header_top__icons___logingIcon{
-  margin-right: 0.5em;
+.header_top__icons___mailIcon,
+.header_top__icons___logingIcon {
+  margin-right: 0.4vw;
 }
 </style>

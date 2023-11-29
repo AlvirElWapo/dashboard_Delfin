@@ -1,20 +1,14 @@
 <template>
-  <Header />
     <Welcome/>
-  <Footer />
 </template>
 
 <script>
-import Header from "../../components/layout/HeaderDesktop.vue";
-import Footer from "../../components/layout/FooterDesktop.vue";
 import Welcome from "../../components/Welcome/WelcomeScreen.vue";
 //import LoginMain from "../../components/Login/LoginMain.vue";
 
 export default {
   name: "App",
   components: {
-    Header,
-    Footer,
     Welcome,
   //LoginMain
   },
