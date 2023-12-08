@@ -1,20 +1,17 @@
 <template>
-
   <div>
       <div class="mt-4">
           <label for="idTra">
-<svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 19">
-    <path d="M14.5 0A3.987 3.987 0 0 0 11 2.1a4.977 4.977 0 0 1 3.9 5.858A3.989 3.989 0 0 0 14.5 0ZM9 13h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"/>
-    <path d="M5 19h10v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2ZM5 7a5.008 5.008 0 0 1 4-4.9 3.988 3.988 0 1 0-3.9 5.859A4.974 4.974 0 0 1 5 7Zm5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm5-1h-.424a5.016 5.016 0 0 1-1.942 2.232A6.007 6.007 0 0 1 17 17h2a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5ZM5.424 9H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h2a6.007 6.007 0 0 1 4.366-5.768A5.016 5.016 0 0 1 5.424 9Z"/>
-  </svg>
-
             EQUIPO A EVALUAR: 
           </label>
-      <select id="idTra" v-model="selectedIdTra" @change="fetchData">
-        <option v-for="idTra in idTraList" :key="idTra.ID_Tra" :value="idTra.ID_Tra">
-        {{ idTra.ID_Tra }}
-        </option>
-      </select>
+
+      <!-- <select id="idTra" v-model="selectedIdTra" @change="fetchData"> -->
+      <!--   <option v-for="idTra in idTraList" :key="idTra.ID_Tra" :value="idTra.ID_Tra"> -->
+          {{ selectedIdTra }}
+      <!--   </option> -->
+      <!-- </select> -->
+
+      
     
             <tbody class="bg-white">
       <tr v-for="(u, index) in users" :key="index">
@@ -28,7 +25,7 @@
 
     <br>
 <p class="text-center">
-Al dar click en el botón <span style="color:green; font-size:2em"><b>Iniciar</b></span>, se dará por iniciada la ponencia
+Al dar click en el botón <span style="color:green; font-size:2em"><b>Iniciar</b></span>, se dará por iniciado el bloque de 5 ponencias aleatorias.
 </p>
     <b><p class="text-center" style="color:red">IMPORTANTE! 
       EL BOTON PARAR, DARÁ POR TERMINADA LA SESIÓN Y SERÁ IMPOSIBLE CONTINUAR</p></b>
@@ -50,9 +47,11 @@ Al dar click en el botón <span style="color:green; font-size:2em"><b>Iniciar</b
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
+import { usePonenciasGlobales } from '../stores/ponencias.js';
+const ponencias = usePonenciasGlobales();
 
 const timer = ref(0);
-const selectedTime = ref(50); 
+const selectedTime = ref(1); 
 const isRunning = ref(false);
 const intervalId = ref<number | null>(null);
 
@@ -101,6 +100,8 @@ function stopChronometer_click_button() {
     isRunning.value = false;
     clearInterval(intervalId.value);
     intervalId.value = null;
+
+
     axios.post('http://localhost:1234/desactivar_Sala', {ID_tra : selectedIdTra.value})
       .then(response => {
       })
@@ -158,12 +159,41 @@ const users = ref<User[]>([]);
 const idTraList = ref<{ ID_Tra: string }[]>([]);
 const selectedIdTra = ref<string | null>(null);
 
+function getRandomElements(array, numElements) {
+  const shuffled = array.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, numElements);
+}
+
+
 onMounted(async () => {
-  const idTraResponse = await axios.get<{ ID_Tra: string }[]>('http://localhost:1234/id_tras');
-  idTraList.value = idTraResponse.data.sort((a, b) => a.ID_Tra.localeCompare(b.ID_Tra));
-  if (idTraList.value.length > 0) {
-    selectedIdTra.value = idTraList.value[0].ID_Tra;
-    fetchData();
+  try {
+    const idTraResponse = await axios.get<{ ID_Tra: string }[]>('http://localhost:1234/id_tras');
+    const shuffledIdTraList = getRandomElements(idTraResponse.data, 5);
+
+    idTraList.value = shuffledIdTraList; 
+    console.log(shuffledIdTraList);
+    if(!ponencias.$state.inicializado || ponencias.$state.ponencias.length == 0)
+   {
+      ponencias.iniciar();
+      shuffledIdTraList.forEach((item) => 
+      {
+        console.log(item['ID_Tra'])
+        ponencias.addPonencia(item['ID_Tra']);
+      });
+      console.log("NUEVO BLOQUE CREADO") 
+      console.log(ponencias.$state.ponencias) 
+    }else
+    {
+      console.log("PONENCIAS RESTANTES:" + ponencias.$state.ponencias);
+    }
+    const constantValue = ponencias.$state.ponencias[0];
+
+    if (idTraList.value.length > 0) {
+      selectedIdTra.value = idTraList.value[0].ID_Tra;
+      fetchData();
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
   }
 });
 

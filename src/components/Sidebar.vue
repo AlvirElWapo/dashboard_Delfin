@@ -28,7 +28,7 @@
         SESION INICIADA
       </div>
 
-      <div class="main__username">Mauro Sánchez Sánches</div>
+      <div class="main__username">{{ session.$state.username }}</div>
 
       <div class="main__usercard">
         <div class="usercard__photo"></div>
@@ -45,31 +45,21 @@
 
       <nav class="mt-10">
         <p class="banner banner_delfin text-xs font-semibold text-gray-400">Programa Delfin</p>
-        <p class="banner banner_general  text-xs font-semibold text-gray-400">General</p>
-        <router-link class="routerlink   flex items-center px-6 py-2  duration-200"
+
+
+        <router-link v-show="tipoUsuario == 'mauro'" class="routerlink v-show flex items-center px-6 py-2  duration-200"
           :class="[$route.name === 'Dashboard' ? activeClass : inactiveClass]" to="/dashboard">
           <span class="mx-4">Buscar Equipos</span>
         </router-link>
 
-
-
-
-
-
-        <router-link class="routerlink flex items-center px-6 py-2 duration-200"
+        <router-link  v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
           :class="[$route.name === 'SEDES' ? activeClass : inactiveClass]" to="/busq_por_sede">
           <span class="mx-4">Buscar Por Sede</span>
         </router-link>
 
 
-        <router-link v-show="tipoUsuario !== 'Mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
-          :class="[$route.name === 'pase_de_lista' ? activeClass : inactiveClass]" to="/pase_de_lista">
 
-          <span class="mx-4">Pase de Lista</span>
-        </router-link>
-
-
-        <router-link class="routerlink flex items-center px-6 py-2 duration-200 "
+        <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200 "
           :class="[$route.name === 'Chart' ? activeClass : inactiveClass]" to="/Pase_de_lista_moderador">
 
           <span class="mx-4">Pase de Lista Mod.</span>
@@ -80,21 +70,21 @@
           Opciones
         </p>
 
-        <router-link class="routerlink flex items-center px-6 py-2  duration-200"
+        <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2  duration-200"
           :class="[$route.name === 'Chart' ? activeClass : inactiveClass]" to="/charts">
 
-          <span class="mx-4">Graficas Descriptivas</span>
+          <span class="mx-4">Control de Salas</span>
         </router-link>
 
 
-        <router-link v-show="tipoUsuario !== 'Mauro'" class="routerlink flex items-center px-6 py-2  duration-200"
+        <router-link v-show="tipoUsuario == 'moderador'" class="routerlink flex items-center px-6 py-2  duration-200"
           :class="[$route.name === 'cronometro' ? activeClass : inactiveClass]" to="/cronometro">
 
           <span class="mx-4">Cronometro</span>
         </router-link>
 
 
-        <router-link class="routerlink flex items-center px-6 py-2 duration-200"
+        <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
           :class="[$route.name === 'agregar_moderador' ? activeClass : inactiveClass]" to="/agregar_moderador">
 
           <span class="mx-4">Agregar Moderador</span>
@@ -105,10 +95,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
+import { useGlobalSession } from '../stores/session.js';
 import { useSidebar } from "../hooks/useSidebar";
 
-const tipoUsuario = ref("otracosa");
+const session = useGlobalSession();
 const { isOpen } = useSidebar();
 const activeClass = ref(
   "bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100"
@@ -116,6 +107,10 @@ const activeClass = ref(
 const inactiveClass = ref(
   "border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
 );
+
+console.log("Username:", session.$state.username);
+console.log("User type: ", session.$state.user_type);
+const tipoUsuario = session.$state.user_type;
 
 </script>
 

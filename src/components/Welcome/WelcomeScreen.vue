@@ -1,6 +1,4 @@
 <template>
-
-
   <div class="welcome_container">
     <div class="welcome_container__main">
       <div class="main__buttons">
@@ -97,14 +95,26 @@ export default {
       try {
         const response = await axios.post('http://localhost:1234/login', this.userData);
         console.log(response.data.success);
-        if (response.data.success) { 
+        console.log(response.data);
+        if (response.data.success) {
+          const userData = response.data.user;
+          const session = useGlobalSession();
+          session.setupSessions(userData);
+
+          console.log("Session data:", session.$state);
+          if(session.$state.user_type === "moderador")
+          {
+          router.push('/cronometro');
+          }else{
           router.push('/dashboard');
+          }
 
         } else {
-          router.push('/alt_login');
+          //router.push('/alt_login');
+          console.log("fail");
         }
       } catch (error) {
-        router.push('/alt_login');
+        //router.push('/alt_login');
         console.error('Login error:', error);
       }
     },
@@ -113,7 +123,6 @@ export default {
   {
     const session = useGlobalSession();
     console.log(session.tipo_de_usuario);
-    session.setup_sessions("Mauro");
     console.log(session.tipo_de_usuario);
     return {session};
   },

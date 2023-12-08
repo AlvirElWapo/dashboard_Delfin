@@ -5,6 +5,7 @@
   <div class="main_container">
     <div class="main_row">
       <div class="main_row__login">
+        <form id="form2" name="form2" @submit.prevent="login">
         <h1 class="main_row__login___title">INICIAR SESIÓN</h1>
         <div class="main_row__login___credentials">
           <div class="main_row__login___credentials____user">
@@ -26,6 +27,7 @@
         </div>
         <button class="main_row__login___button" @click="login">Entrar</button>
         <span class="main_row__login___recoverMessage">Recuperar mis datos de Sesión</span>
+    </form>
       </div>
       <div class="main_row__message">
         <h1 class="main_row__message___mainInfo">No se pudo iniciar Sesión</h1>
@@ -42,9 +44,11 @@
 <!-- ┏┓         •          -->
 <!-- ┗┓  ┏  ┏┓  ┓  ┏┓  ╋   -->
 <!-- ┗┛  ┗  ┛   ┗  ┣┛  ┗   -->
-  
 <script>
 import axios from 'axios';
+import router from '../../router/';
+import { useGlobalSession } from '../../stores/session.js';
+
 export default {
   data() {
     return {
@@ -54,17 +58,24 @@ export default {
       },
     };
   },
-  methods: 
-  {
-    async login() 
-    {
-      try 
-      {
-        const response = await axios.post('/login', this.userData);
-        console.log(response);
-      } catch (error) 
-      {
-        console.log(error);
+  methods: {
+    async login() {
+      try {
+        const response = await axios.post('http://localhost:1234/login', this.userData);
+        console.log(response.data.success);
+        if (response.data.success) {
+          const userData = response.data.user;
+
+          const session = useGlobalSession();
+          session.setupSessions(userData);
+
+          router.push('/dashboard');
+        } else {
+          router.push('/alt_login');
+        }
+      } catch (error) {
+        router.push('/alt_login');
+        console.error('Login error:', error);
       }
     },
   },

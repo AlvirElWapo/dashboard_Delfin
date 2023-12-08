@@ -2,20 +2,9 @@
   <div>
       <div class="mt-4">
           <label for="idTra">
-<svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 19">
-    <path d="M14.5 0A3.987 3.987 0 0 0 11 2.1a4.977 4.977 0 0 1 3.9 5.858A3.989 3.989 0 0 0 14.5 0ZM9 13h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"/>
-    <path d="M5 19h10v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2ZM5 7a5.008 5.008 0 0 1 4-4.9 3.988 3.988 0 1 0-3.9 5.859A4.974 4.974 0 0 1 5 7Zm5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm5-1h-.424a5.016 5.016 0 0 1-1.942 2.232A6.007 6.007 0 0 1 17 17h2a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5ZM5.424 9H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h2a6.007 6.007 0 0 1 4.366-5.768A5.016 5.016 0 0 1 5.424 9Z"/>
-  </svg>
-
             SELECCION DE EQUIPO: 
-
-
           </label>
-      <select id="idTra" v-model="selectedIdTra" @change="fetchData">
-        <option v-for="(state, index) in idTraList" :key="index" >
-        {{ state }}
-        </option>
-      </select>
+          {{ ponencias.$state.finalizada }}
     </div>
     <div class="mt-8"></div>
     <div class="flex flex-col mt-8">
@@ -98,11 +87,11 @@
 
             <tbody class="bg-white">
               <tr v-for="(u, index) in users" :key="index">
-<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-  <div class="text-sm font-medium leading-5 text-gray-900">
-    {{ u.ID_Tra }}
-  </div>
-</td>
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                <div class="text-sm font-medium leading-5 text-gray-900">
+                  {{ u.ID_Tra }}
+                </div>
+              </td>
 
 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
   <div class="text-sm font-medium leading-5 text-gray-900">
@@ -157,6 +146,7 @@
   <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
+import  router  from '../router'; 
 
 interface User {
   equipo: string;
@@ -169,10 +159,14 @@ const users = ref<User[]>([]);
 const idTraList = ref<{ ID_Tra: string }[]>([]);
 const selectedIdTra = ref<string | null>(null);
 
+
+import { usePonenciasGlobales } from '../stores/ponencias.js';
+const ponencias = usePonenciasGlobales();
+
 onMounted(async () => {
   try {
     const response = await axios.get('http://localhost:1234/salas_concluidas');
-    idTraList.value = response.data.completadas;
+    idTraList.value = ponencias.$state.finalizada;
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -181,6 +175,12 @@ onMounted(async () => {
     selectedIdTra.value = idTraList.value[0];
     fetchData();
   }
+  console.log("LISTA DE PONENCIAS DISPONIBLES: " + ponencias.$state.ponencias);
+  ponencias.finalizarPonencia()
+  selectedIdTra.value = ponencias.$state.finalizada;
+  console.log("VALOR UTILIZADO DE " + ponencias.$state.ponencias + ": " + selectedIdTra.value )
+
+  fetchData();
 });
 
 const asistenciaValues = computed(() => {
@@ -222,14 +222,16 @@ const printAsistencia = async () => {
           'Content-Type': 'application/json',
         },
       });
-
       console.log('Server Response:', response.data);
+      router.push('/cronometro');
     } else {
       console.error('No selectedIdTra to send with the request.');
     }
   } catch (error) {
     console.error('Error sending data to server:', error);
   }
+
+
 };
 
 </script>
