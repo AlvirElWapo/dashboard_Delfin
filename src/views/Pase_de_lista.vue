@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <div class="mt-4">
+  <div class="mainContainer">
+      <div class="mainContainer_title">
           <label for="idTra">
             SELECCION DE EQUIPO: 
           </label>
@@ -102,6 +102,14 @@
   </div>
 </td>
 
+<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+  <div class="text-sm font-medium leading-5 text-gray-900">
+    <div v-for="(ponente, index) in u.Ponentes" :key="index">
+      {{ ponente}}
+      <span v-if="index !== u.Ponentes.length - 1"><br /></span>
+    </div>
+  </div>
+</td>
 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
   <div class="text-sm font-medium leading-5 text-gray-900">
     <div v-for="(id, index) in u.ID_pons" :key="index">
@@ -238,6 +246,45 @@ const printAsistencia = async () => {
 
 
 <style scoped>
+.mainContainer{
+  width: 65vw;
+  height: auto;
+  padding: 4vw 1vw;
+  background-color: var(--white);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin-top: 2vw;
+  overflow: hidden;
+}
+
+.mainContainer_title{
+  text-align: left;
+  font-size: 1.6vw;
+}
+
+.mainContainer_title select{
+  color: var(--white);
+  background-color: var(--main-blue);
+  border-radius: 8px;
+  padding: 0.2vw 0.1vw;
+  text-align: center;
+  border: 1px solid #000;
+  width: 6vw;
+}
+
+.mainContainer_title select option{
+  background-color: #ccc;
+  border-radius: 10px;
+}
+th.px-6{
+  color: var(--white);
+}
+
+th{
+  background-color: var(--header-blue);
+  color: var(--white);
+}
+
 .switch {
   position: relative;
   display: inline-block;
@@ -252,6 +299,7 @@ const printAsistencia = async () => {
 }
 
 .slider {
+  border-radius: 24px;
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -264,6 +312,7 @@ const printAsistencia = async () => {
 }
 
 .slider:before {
+  border-radius: 50%;
   position: absolute;
   content: attr(data-text);
   height: 26px;
@@ -296,4 +345,21 @@ input:focus + .slider:before {
   content: "No";
 }
 
+
+.btn{
+  margin-top:0.5vw;
+  color: #000;
+  font-weight: bolder;
+  transition: all 0.5s ease-in-out;
+}
+
+.btn:hover {
+  color: #f36201;
+  transform: scale(1.1);
+}
+
+.btn:active {
+  color: #fff;
+  transform: scale(1.2);
+}
 </style>
