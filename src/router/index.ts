@@ -16,6 +16,8 @@ import Busqueda_Moderador from "../views/Busqueda_Moderador.vue";
 import Pase_De_Lista_Moderador from "../views/Pase_de_lista_mod.vue";
 import mainpage from "../views/mainpage/mainpage.vue";
 import login from "../views/login/login.vue";
+import EstatusSalas from "../views/EstatusSalas.vue"
+import CargarExcel from "../views/CargarExcel.vue"
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -23,6 +25,16 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/estatus_salas",
+    name: "Estatus_salas",
+    component: EstatusSalas,
+  },
+  {
+    path: "/cargar_info",
+    name: "Cargar_info",
+    component: CargarExcel,
   },
   {
     path: "/busq_por_sede",
@@ -93,7 +105,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'mainpage',
     component: mainpage,
-    meta: 
+    meta:
     {
       layout: 'full-width', // or you can set it to null or false
     },
@@ -102,7 +114,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/alt_login',
     name: 'login',
     component: login,
-    meta: 
+    meta:
     {
       layout: 'full-width', // or you can set it to null or false
     },
