@@ -77,8 +77,9 @@
 
 <script>
 import axios from 'axios';
-import  router  from '../../router/'; 
-import {useGlobalSession} from '../../stores/session.js'
+import router from '../../router/'; 
+import { useGlobalSession } from '../../stores/session.js'
+
 export default {
   data() {
     return {
@@ -98,33 +99,31 @@ export default {
         console.log(response.data);
         if (response.data.success) {
           const userData = response.data.user;
+          this.userType = userData.user_type || 'moderador';
           const session = useGlobalSession();
-          session.setupSessions(userData);
+          session.setupSessions({ ...userData, user_type: this.userType });
 
           console.log("Session data:", session.$state);
-          if(session.$state.user_type === "moderador")
-          {
-          router.push('/cronometro');
-          }else{
-          router.push('/dashboard');
+          if (this.userType === "moderador") {
+            router.push('/cronometro');
+          } else {
+            router.push('/dashboard');
           }
 
         } else {
-          //router.push('/alt_login');
-          console.log("fail");
+          console.log("Login failed");
         }
       } catch (error) {
-        //router.push('/alt_login');
+        console.log("ENVIANDO:" + this.userData.username)
+        console.log("ENVIANDO:" + this.userData.password)
         console.error('Login error:', error);
       }
     },
   },
-  setup()
-  {
+  setup() {
     const session = useGlobalSession();
     console.log(session.tipo_de_usuario);
-    console.log(session.tipo_de_usuario);
-    return {session};
+    return { session };
   },
 };
 </script>
