@@ -18,6 +18,7 @@ import mainpage from "../views/mainpage/mainpage.vue";
 import login from "../views/login/login.vue";
 import EstatusSalas from "../views/EstatusSalas.vue"
 import CargarExcel from "../views/CargarExcel.vue"
+import control_moderadores from "../views/control_moderadores.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -100,6 +101,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/blank",
     name: "Blank",
     component: Blank,
+  },
+  {
+    path: "/control_moderadores",
+    name: "control_moderadores",
+    component: control_moderadores,
   },
   {
     path: '/',
