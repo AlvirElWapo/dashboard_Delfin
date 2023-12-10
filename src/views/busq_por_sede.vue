@@ -1,23 +1,24 @@
 <template>
   <div>
-      <div class="mt-4">
-          <label for="idTra">
+    <div class="mainContainer">
+      <div class="mainContainer_title">
+        <label for="idTra">
 
-            SELECCIÓN DE CEDE
+          SELECCIÓN DE CEDE
 
 
-          </label>
+        </label>
+      </div>
       <select id="idTra" v-model="selectedSalon" @change="fetchData">
         <option v-for="idTra in idTraList" :key="idTra.Salon" :value="idTra.Salon">
           {{ idTra.Salon }}
         </option>
       </select>
-    </div>
-    <div class="mt-8"></div>
-    <div class="flex flex-col mt-8">
-      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div
-          class="
+
+      <div class="mt-8"></div>
+      <div class="flex flex-col mt-8">
+        <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+          <div class="
             inline-block
             min-w-full
             overflow-hidden
@@ -25,13 +26,11 @@
             border-b border-gray-200
             shadow
             sm:rounded-lg
-          "
-        >
-          <table class="min-w-full">
-            <thead>
-              <tr>
-                <th
-                  class="
+          ">
+            <table class="min-w-full">
+              <thead>
+                <tr>
+                  <th class="
                     px-6
                     py-3
                     text-xs
@@ -42,12 +41,10 @@
                     uppercase
                     border-b border-gray-200
                     bg-gray-50
-                  "
-                >
-                 Equipo 
-                </th>
-                <th
-                  class="
+                  ">
+                    Equipo
+                  </th>
+                  <th class="
                     px-6
                     py-3
                     text-xs
@@ -58,12 +55,10 @@
                     uppercase
                     border-b border-gray-200
                     bg-gray-50
-                  "
-                >
-                  Integrantes 
-                </th>
-                <th
-                  class="
+                  ">
+                    Integrantes
+                  </th>
+                  <th class="
                     px-6
                     py-3
                     text-xs
@@ -74,12 +69,10 @@
                     uppercase
                     border-b border-gray-200
                     bg-gray-50
-                  "
-                >
-                  Id's Integrantes 
-                </th>
-                <th
-                  class="
+                  ">
+                    Id's Integrantes
+                  </th>
+                  <th class="
                     px-6
                     py-3
                     text-xs
@@ -90,50 +83,48 @@
                     uppercase
                     border-b border-gray-200
                     bg-gray-50
-                  "
-                >
-                  Numero De Integrantes
-                </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-              </tr>
-            </thead>
+                  ">
+                    Numero De Integrantes
+                  </th>
+                  <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                </tr>
+              </thead>
 
-            <tbody class="bg-white">
-              <tr v-for="(u, index) in users" :key="index">
-<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-  <div class="text-sm font-medium leading-5 text-gray-900">
-    {{ u.ID_Tra }}
-  </div>
-</td>
+              <tbody class="bg-white">
+                <tr v-for="(u, index) in users" :key="index">
+                  <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                    <div class="text-sm font-medium leading-5 text-gray-900">
+                      {{ u.ID_Tra }}
+                    </div>
+                  </td>
 
-<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-  <div class="text-sm font-medium leading-5 text-gray-900">
-    <div v-for="(ponente, index) in u.Ponentes" :key="index">
-      {{ ponente }}
-      <span v-if="index !== u.Ponentes.length - 1"><br /></span>
-    </div>
-  </div>
-</td>
+                  <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                    <div class="text-sm font-medium leading-5 text-gray-900">
+                      <div v-for="(ponente, index) in u.Ponentes" :key="index">
+                        {{ ponente }}
+                        <span v-if="index !== u.Ponentes.length - 1"><br /></span>
+                      </div>
+                    </div>
+                  </td>
 
-<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-  <div class="text-sm font-medium leading-5 text-gray-900">
-    <!-- Iterate through each ID in the ID_pons array -->
-    <div v-for="(id, index) in u.ID_pons" :key="index">
-      {{ id }}
-      <!-- Add a line break after each ID, excluding the last one -->
-      <span v-if="index !== u.ID_pons.length - 1"><br /></span>
-    </div>
-  </div>
-</td>
+                  <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                    <div class="text-sm font-medium leading-5 text-gray-900">
+                      <!-- Iterate through each ID in the ID_pons array -->
+                      <div v-for="(id, index) in u.ID_pons" :key="index">
+                        {{ id }}
+                        <!-- Add a line break after each ID, excluding the last one -->
+                        <span v-if="index !== u.ID_pons.length - 1"><br /></span>
+                      </div>
+                    </div>
+                  </td>
 
-<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-  <div class="text-sm font-medium leading-5 text-gray-900">
-    {{ u.NoPonentes }}
-  </div>
-</td>
+                  <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                    <div class="text-sm font-medium leading-5 text-gray-900">
+                      {{ u.NoPonentes }}
+                    </div>
+                  </td>
 
-                <td
-                  class="
+                  <td class="
                     px-6
                     py-4
                     text-sm
@@ -142,17 +133,17 @@
                     text-right
                     border-b border-gray-200
                     whitespace-nowrap
-                  "
-                >
-                  <div class="flex justify-around">
-                    <span class="text-yellow-500 flex justify-center">
-                      <!-- Add your edit and delete buttons here -->
-                    </span>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  ">
+                    <div class="flex justify-around">
+                      <span class="text-yellow-500 flex justify-center">
+                        <!-- Add your edit and delete buttons here -->
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -206,14 +197,40 @@ const fetchData = async () => {
   }
 };
 </script>
-<style>
-label{
-  font-weight:bold;
-  color: var(--main-orange);
+<style scoped>
+.mainContainer {
+  width: 100%;
+  height: auto;
+  padding: 4vw 1vw;
+  background-color: var(--white);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin-top: 2vw;
 }
 
-th.px-6{
-  color: var(--main-blue);
+.mainContainer_title {
+  text-align: left;
+  font-size: 1.6vw;
+}
+
+.mainContainer_title select {
+  color: var(--white);
+  background-color: var(--main-blue);
+  border-radius: 8px;
+  padding: 0.2vw 0.1vw;
+  text-align: center;
+  border: 1px solid #000;
+  width: 6vw;
+}
+
+.mainContainer_title select option {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+th {
+  background-color: var(--header-blue);
+  color: var(--white);
 }
 </style>
 

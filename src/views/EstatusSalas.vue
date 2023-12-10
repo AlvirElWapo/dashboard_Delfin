@@ -123,11 +123,11 @@
                                     </div>
                                 </td>
 
-                                <div>
+                                <div class="estatus">
                                     <p :class="{ 'text-green': estado === 'Abierta', 'text-red': estado === 'Cerrada' }">
                                         {{ estado }}
                                     </p>
-                                    <select id="estado" v-model="estado">
+                                    <select class="desplegable" id="estado" v-model="estado">
                                         <option value="Abierta">Abierta</option>
                                         <option value="Cerrada">Cerrada</option>
                                     </select>
@@ -196,6 +196,19 @@ const fetchData = async () => {
 
   
 <style scoped>
+
+.estatus{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vw;
+    font-weight: bolder;
+}
+.desplegable{
+    margin-left: 1vw;
+ width: 1vw;
+ height: 1vw;
+}
 .text-green {
     color: green;
 }

@@ -91,6 +91,18 @@
 
 
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
+          :class="[$route.name === 'estatus_salas' ? activeClass : inactiveClass]" to="/estatus_salas">
+
+          <span class="mx-4">Estatus de Salas</span>
+        </router-link>
+        
+        <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
+          :class="[$route.name === 'cargar_info' ? activeClass : inactiveClass]" to="/cargar_info">
+
+          <span class="mx-4">Cargar Información</span>
+        </router-link>
+
+        <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
           :class="[$route.name === 'agregar_moderador' ? activeClass : inactiveClass]" to="/agregar_moderador">
 
           <span class="mx-4">Agregar Moderador</span>

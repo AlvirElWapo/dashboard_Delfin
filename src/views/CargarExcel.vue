@@ -24,6 +24,18 @@
     background-color: var(--main-blue);
     color: var(--white);
     border: 2px solid #000;
+    transition: all 0.3s ease;
+}
+.loadBtn:hover {
+    transform: scale(1.1);
+    background-color: var(--main-orange);
+    color: #000;
+    border: 2px solid var(--main-blue);
+}
+.loadBtn:active {
+    transform: scale(1.15);
+    color: #fff;
+    background-color: var(--white);
 }
 
 .mainContainer {

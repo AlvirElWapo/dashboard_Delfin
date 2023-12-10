@@ -180,7 +180,6 @@ export default {
 }
 
 
-.section-title{}
 .section-title h5{
     color: #005289;
     position: relative;
@@ -222,7 +221,7 @@ export default {
   height: 70vh;
   position: absolute;
   display: flex;
-  padding: 6.5em 8.5em;
+  padding: 5.4vw 7.1vw;
   color: var(--white);
   justify-content: space-between;
   font-family: "Raleway", sans-serif;
@@ -247,17 +246,17 @@ export default {
 
 .btn {
   width: 30.41vw;
-  height: 5.7vh;
+  height: 8.7vh;
   border-radius: 12px;
   border: none;
   background-color: var(--main-orange);
-  font-size: 1em;
+  font-size: 1.4vw;
   margin-bottom: 2em;
   color: var(--white);
   text-align: left;
   font-family: "Raleway", sans-serif;
   font-weight: bolder;
-  padding: 0 2.5em;
+  padding: 0 3vw;
   transition: 0.3s ease;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -266,33 +265,8 @@ export default {
   height: 20vh;
 }
 
-.main-btn {
-	display: inline-block;
-	font-weight: 500;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	border: 1px solid #f48120;
-	padding: 0 35px;
-	font-size: 16px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 700;
-	line-height: 50px;
-	border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    z-index: 5;
-    -webkit-transition: 0.4s ease-in-out;
-    transition: 0.4s ease-in-out;
-    background-color: #f48120;
-}
-.main-btn:hover{
+
+.btn:hover{
     color: #fff;
     border-color: #005289;
     background-color: #005289;
@@ -339,6 +313,11 @@ export default {
     color: #005289;
     background-color: #f48120;
     border-color: #f48120;
+}
+
+.main__logo{
+  transform: scale(1.3);
+  padding-right: 5vw;
 }
 
 </style>
