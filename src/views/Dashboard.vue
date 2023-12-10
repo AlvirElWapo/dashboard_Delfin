@@ -1,14 +1,14 @@
 <template>
   <div class="mainContainer">
-      <div class="mainContainer_title">
-          <label for="idTra">
+    <div class="mainContainer_title">
+      <label for="idTra">
 
-            Selección de Equipos: 
+        Selección de Equipos:
 
-          </label>
+      </label>
       <select id="idTra" v-model="selectedIdTra" @change="fetchData">
         <option v-for="idTra in idTraList" :key="idTra.ID_Tra" :value="idTra.ID_Tra">
-        {{ idTra.ID_Tra }}
+          {{ idTra.ID_Tra }}
         </option>
       </select>
     </div>
@@ -17,8 +17,7 @@
     <div class="mt-8"></div>
     <div class="flex flex-col mt-8">
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div
-          class="
+        <div class="
             inline-block
             min-w-full
             overflow-hidden
@@ -26,13 +25,11 @@
             border-b border-gray-200
             shadow
             sm:rounded-lg
-          "
-        >
+          ">
           <table class="min-w-full">
             <thead>
               <tr>
-                <th
-                  class="
+                <th class="
                     px-6
                     py-3
                     text-xs
@@ -43,12 +40,10 @@
                     uppercase
                     border-b border-gray-200
                     bg-gray-50
-                  "
-                >
-                 Equipo 
+                  ">
+                  Equipo
                 </th>
-                <th
-                  class="
+                <th class="
                     px-6
                     py-3
                     text-xs
@@ -59,12 +54,10 @@
                     uppercase
                     border-b border-gray-200
                     bg-gray-50
-                  "
-                >
-                  Integrantes 
+                  ">
+                  Integrantes
                 </th>
-                <th
-                  class="
+                <th class="
                     px-6
                     py-3
                     text-xs
@@ -75,12 +68,10 @@
                     uppercase
                     border-b border-gray-200
                     bg-gray-50
-                  "
-                >
-                  Id's Integrantes 
+                  ">
+                  Id's Integrantes
                 </th>
-                <th
-                  class="
+                <th class="
                     px-6
                     py-3
                     text-xs
@@ -91,8 +82,7 @@
                     uppercase
                     border-b border-gray-200
                     bg-gray-50
-                  "
-                >
+                  ">
                   Numero De Integrantes
                 </th>
                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
@@ -101,11 +91,11 @@
 
             <tbody class="bg-white">
               <tr v-for="(u, index) in users" :key="index">
-<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-  <div class="text-sm font-medium leading-5 text-gray-900">
-    {{ u.ID_Tra }}
-  </div>
-</td>
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                  <div class="text-sm font-medium leading-5 text-gray-900">
+                    {{ u.ID_Tra }}
+                  </div>
+                </td>
 
 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
   <div class="text-sm font-medium leading-5 text-gray-900">
@@ -118,6 +108,16 @@
 
 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
   <div class="text-sm font-medium leading-5 text-gray-900">
+    <div v-for="(ponente, index) in u.Ponentes" :key="index">
+      {{ ponente}}
+      <span v-if="index !== u.Ponentes.length - 1"><br /></span>
+    </div>
+  </div>
+</td>
+
+
+<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+  <div class="text-sm font-medium leading-5 text-gray-900">
     <!-- Iterate through each ID in the ID_pons array -->
     <div v-for="(id, index) in u.ID_pons" :key="index">
       {{ id }}
@@ -127,14 +127,13 @@
   </div>
 </td>
 
-<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-  <div class="text-sm font-medium leading-5 text-gray-900">
-    {{ u.NoPonentes }}
-  </div>
-</td>
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                  <div class="text-sm font-medium leading-5 text-gray-900">
+                    {{ u.NoPonentes }}
+                  </div>
+                </td>
 
-                <td
-                  class="
+                <td class="
                     px-6
                     py-4
                     text-sm
@@ -143,8 +142,7 @@
                     text-right
                     border-b border-gray-200
                     whitespace-nowrap
-                  "
-                >
+                  ">
                   <div class="flex justify-around">
                     <span class="text-yellow-500 flex justify-center">
                       <!-- Add your edit and delete buttons here -->
@@ -203,12 +201,13 @@ const fetchData = async () => {
   }
 };
 </script>
+
 <style scoped>
-th.px-6{
+th.px-6 {
   color: var(--white);
 }
 
-.mainContainer{
+.mainContainer {
   width: 100%;
   height: auto;
   padding: 4vw 1vw;
@@ -218,12 +217,12 @@ th.px-6{
   margin-top: 2vw;
 }
 
-.mainContainer_title{
+.mainContainer_title {
   text-align: left;
   font-size: 1.6vw;
 }
 
-.mainContainer_title select{
+.mainContainer_title select {
   color: var(--white);
   background-color: var(--main-blue);
   border-radius: 8px;
@@ -233,15 +232,14 @@ th.px-6{
   width: 6vw;
 }
 
-.mainContainer_title select option{
+.mainContainer_title select option {
   background-color: #ccc;
   border-radius: 10px;
 }
 
-th{
+th {
   background-color: var(--header-blue);
   color: var(--white);
 }
-
 </style>
 
