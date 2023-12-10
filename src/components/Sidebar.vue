@@ -43,13 +43,19 @@
         </div>
       </div>
 
+
       <nav class="mt-10">
-        <p class="banner banner_delfin text-xs font-semibold text-gray-400">Programa Delfin</p>
+        <p class="banner banner_delfin text-xs font-semibold text-gray-400">Programa Delfin <br>{{currentTime}}</p>
 
 
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink v-show flex items-center px-6 py-2  duration-200"
           :class="[$route.name === 'Dashboard' ? activeClass : inactiveClass]" to="/dashboard">
           <span class="mx-4">Buscar Equipos</span>
+        </router-link>
+
+        <router-link v-show="tipoUsuario == 'mauro'" class="routerlink v-show flex items-center px-6 py-2  duration-200"
+          :class="[$route.name === 'Dashboard' ? activeClass : inactiveClass]" to="/control_moderadores">
+          <span class="mx-4">Control de Moderadores</span>
         </router-link>
 
         <router-link  v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
@@ -89,13 +95,16 @@
 
           <span class="mx-4">Agregar Moderador</span>
         </router-link>
+
+
+
       </nav>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, onBeforeUnmount } from "vue";
 import { useGlobalSession } from '../stores/session.js';
 import { useSidebar } from "../hooks/useSidebar";
 
@@ -111,6 +120,29 @@ const inactiveClass = ref(
 console.log("Username:", session.$state.username);
 console.log("User type: ", session.$state.user_type);
 const tipoUsuario = session.$state.user_type;
+
+// Add clock functionality
+const currentTime = ref(getCurrentTime());
+
+function getCurrentTime() {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+function updateCurrentTime() {
+  currentTime.value = getCurrentTime();
+}
+
+// Update the time every second
+const intervalId = setInterval(updateCurrentTime, 1000);
+
+onBeforeUnmount(() => {
+  // Clear the interval when the component is unmounted
+  clearInterval(intervalId);
+});
 
 </script>
 

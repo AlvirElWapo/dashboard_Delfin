@@ -16,6 +16,7 @@ import Busqueda_Moderador from "../views/Busqueda_Moderador.vue";
 import Pase_De_Lista_Moderador from "../views/Pase_de_lista_mod.vue";
 import mainpage from "../views/mainpage/mainpage.vue";
 import login from "../views/login/login.vue";
+import control_moderadores from "../views/control_moderadores.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -88,6 +89,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/blank",
     name: "Blank",
     component: Blank,
+  },
+  {
+    path: "/control_moderadores",
+    name: "control_moderadores",
+    component: control_moderadores,
   },
   {
     path: '/',
