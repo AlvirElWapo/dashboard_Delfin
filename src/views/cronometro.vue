@@ -7,7 +7,7 @@
 
       <!-- <select id="idTra" v-model="selectedIdTra" @change="fetchData"> -->
       <!--   <option v-for="idTra in idTraList" :key="idTra.ID_Tra" :value="idTra.ID_Tra"> -->
-      {{ selectedIdTra }}
+        {{ ponencias.$state.ponencias[0] }}
       <!--   </option> -->
       <!-- </select> -->
 
@@ -172,17 +172,21 @@ onMounted(async () => {
     const idTraResponse = await axios.get<{ ID_Tra: string }[]>('http://localhost:1234/id_tras');
     const shuffledIdTraList = getRandomElements(idTraResponse.data, 5);
 
-    idTraList.value = shuffledIdTraList;
-    console.log(shuffledIdTraList);
-    if (!ponencias.$state.inicializado || ponencias.$state.ponencias.length == 0) {
+    if(!ponencias.$state.inicializado)
+   {
+      idTraList.value = shuffledIdTraList; 
+
+      console.log(shuffledIdTraList);
       ponencias.iniciar();
       shuffledIdTraList.forEach((item) => {
         console.log(item['ID_Tra'])
         ponencias.addPonencia(item['ID_Tra']);
       });
-      console.log("NUEVO BLOQUE CREADO")
-      console.log(ponencias.$state.ponencias)
-    } else {
+      console.log("NUEVO BLOQUE CREADO") 
+      console.log(ponencias.$state.ponencias) 
+    }else
+    {
+      selectedIdTra = ponencias.$state.ponencias[0];
       console.log("PONENCIAS RESTANTES:" + ponencias.$state.ponencias);
     }
     const constantValue = ponencias.$state.ponencias[0];
@@ -194,6 +198,9 @@ onMounted(async () => {
   } catch (error) {
     console.error('Error fetching data:', error);
   }
+  selectedIdTra.value = ponencias.$state.ponencias[0];
+
+
 });
 
 const fetchData = async () => {

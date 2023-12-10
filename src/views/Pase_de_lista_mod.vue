@@ -1,12 +1,7 @@
 <template>
-  <div>
-    <div class="mt-4">
+  <div class="mainContainer">
+      <div class="mainContainer_title">
       <label for="idTra">
-
-<svg class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 19">
-    <path d="M14.5 0A3.987 3.987 0 0 0 11 2.1a4.977 4.977 0 0 1 3.9 5.858A3.989 3.989 0 0 0 14.5 0ZM9 13h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"/>
-    <path d="M5 19h10v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2ZM5 7a5.008 5.008 0 0 1 4-4.9 3.988 3.988 0 1 0-3.9 5.859A4.974 4.974 0 0 1 5 7Zm5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm5-1h-.424a5.016 5.016 0 0 1-1.942 2.232A6.007 6.007 0 0 1 17 17h2a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5ZM5.424 9H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h2a6.007 6.007 0 0 1 4.366-5.768A5.016 5.016 0 0 1 5.424 9Z"/>
-  </svg>
 
 
         SELECCION DE MODERADOR:
@@ -115,9 +110,8 @@
           <input type="checkbox" id="single-switch" v-model="switchValue" />
           <span class="slider" ></span>
         </label>
-        Placeholder Text
 <!--savepoint-->
-        <button @click="printAsistencia">Log Value</button>
+        <button @click="printAsistencia"></button>
       </div>
     </td>
 
@@ -210,6 +204,44 @@ const printAsistencia = async (singleValue) => {
 </style>
 
 <style scoped>
+.mainContainer{
+  width: 65vw;
+  height: auto;
+  padding: 4vw 1vw;
+  background-color: var(--white);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin-top: 2vw;
+  overflow: hidden;
+}
+
+.mainContainer_title{
+  text-align: left;
+  font-size: 1.6vw;
+}
+
+.mainContainer_title select{
+  color: var(--white);
+  background-color: var(--main-blue);
+  border-radius: 8px;
+  padding: 0.2vw 0.1vw;
+  text-align: center;
+  border: 1px solid #000;
+  width: 6vw;
+}
+
+.mainContainer_title select option{
+  background-color: #ccc;
+  border-radius: 10px;
+}
+th.px-6{
+  color: var(--white);
+}
+
+th{
+  background-color: var(--header-blue);
+  color: var(--white);
+}
 .switch {
   position: relative;
   display: inline-block;
@@ -224,6 +256,7 @@ const printAsistencia = async (singleValue) => {
 }
 
 .slider {
+  border-radius: 24px;
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -236,6 +269,7 @@ const printAsistencia = async (singleValue) => {
 }
 
 .slider:before {
+  border-radius: 50%;
   position: absolute;
   content: attr(data-text);
   height: 26px;
