@@ -51,12 +51,41 @@
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
 import { usePonenciasGlobales } from '../stores/ponencias.js';
+import { useGlobalSession } from '../stores/session.js';
 const ponencias = usePonenciasGlobales();
+const session = useGlobalSession();
+
 
 const timer = ref(0);
 const selectedTime = ref(1);
 const isRunning = ref(false);
 const intervalId = ref<number | null>(null);
+
+onMounted(() => {
+  // Cuando la vista se carga, obtener el ID_MOD y enviarlo al servidor automáticamente.
+  const idMod = obtenerIdMod(); 
+  enviarIdModAlServidor(idMod);
+});
+
+// Función para obtener el ID_MOD (reemplázala con tu lógica real).
+function obtenerIdMod() {
+  const idMod = session.$state.id;
+  //console.log('ID_MOD obtenido:', idMod);  // Muestra el ID_MOD en la consola del navegador.
+  return idMod;
+}
+
+// Función para enviar el ID_MOD al servidor.
+function enviarIdModAlServidor(idMod) {
+  // Envía el ID_MOD al servidor al cargar la vista.
+  axios.post('http://localhost:1234/moderador_activo', { ID_MOD: idMod })
+    .then(response => {
+      // Manejar la respuesta del servidor si es necesario.
+    })
+    .catch(error => {
+      console.error('ERROR AL ENVIAR ID_MOD AL SERVIDOR:', error);
+    });
+}
+
 
 function formatTime(seconds: number): string {
   const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
