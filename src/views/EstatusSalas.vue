@@ -50,10 +50,11 @@
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <!-- Estatus handling -->
                   <div class="estatus">
-                    <p :class="{ 'text-green': estado === 'Abierta', 'text-red': estado === 'Cerrada' }">
+                    <p :class="{ 'text-gray': estado === 'Pendiente','text-green': estado === 'Abierta', 'text-red': estado === 'Cerrada' }">
                       {{ estado }}
                     </p>
                     <select class="desplegable" id="estado" v-model="estado">
+                      <option value="Pendiente">Pendiente</option>
                       <option value="Abierta">Abierta</option>
                       <option value="Cerrada">Cerrada</option>
                     </select>
@@ -77,7 +78,7 @@ interface User {
   // Add other fields like Sala and Area if they are being fetched
 }
 
-const estado = ref('Abierta'); // Estado inicial
+const estado = ref('Pendiente'); // Estado inicial
 const users = ref<User[]>([]);
 const edificiosList = ref<{ UBICACION: string }[]>([]);
 const selectedUbicacion = ref<string | null>(null);
@@ -125,6 +126,10 @@ const fetchData = async () => {
     margin-left: 1vw;
  width: 1vw;
  height: 1vw;
+}
+
+.text-gray {
+    color: gray;
 }
 .text-green {
     color: green;
