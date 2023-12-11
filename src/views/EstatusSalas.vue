@@ -9,7 +9,7 @@
         </option>
       </select>
       <div class="update-button-container">
-        <button @click="refreshData" class="update-button">- Actualizar Datos -</button>
+        <button @click="refreshData" class="update-button"><font-awesome-icon class="icon" icon="fa-solid fa-repeat" /> Actualizar Datos </button>
       </div>
     </div>
 

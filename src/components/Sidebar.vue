@@ -55,17 +55,17 @@
 
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink v-show flex items-center px-6 py-2  duration-200"
           :class="[$route.name === 'Dashboard' ? activeClass : inactiveClass]" to="/dashboard">
-          <span class="mx-4">Buscar Equipos</span>
+          <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Buscar Equipos</span>
         </router-link>
 
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink v-show flex items-center px-6 py-2  duration-200"
           :class="[$route.name === 'Dashboard' ? activeClass : inactiveClass]" to="/control_moderadores">
-          <span class="mx-4">Control de Moderadores</span>
+          <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Control de Moderadores</span>
         </router-link>
 
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
           :class="[$route.name === 'SEDES' ? activeClass : inactiveClass]" to="/busq_por_sede">
-          <span class="mx-4">Buscar Por Sede</span>
+          <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Buscar Por Sede</span>
         </router-link>
 
 
@@ -73,7 +73,7 @@
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200 "
           :class="[$route.name === 'Chart' ? activeClass : inactiveClass]" to="/Pase_de_lista_moderador">
 
-          <span class="mx-4">Pase de Lista Mod.</span>
+          <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Pase de Lista Mod.</span>
         </router-link>
 
 
@@ -84,33 +84,33 @@
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2  duration-200"
           :class="[$route.name === 'Chart' ? activeClass : inactiveClass]" to="/charts">
 
-          <span class="mx-4">Control de Salas</span>
+          <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Control de Salas</span>
         </router-link>
 
 
         <router-link v-show="tipoUsuario == 'moderador'" class="routerlink flex items-center px-6 py-2  duration-200"
           :class="[$route.name === 'cronometro' ? activeClass : inactiveClass]" to="/cronometro">
 
-          <span class="mx-4">Cronometro</span>
+          <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Cronometro</span>
         </router-link>
 
 
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
           :class="[$route.name === 'estatus_salas' ? activeClass : inactiveClass]" to="/estatus_salas">
 
-          <span class="mx-4">Estatus de Salas</span>
+          <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Estatus de Salas</span>
         </router-link>
 
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
           :class="[$route.name === 'cargar_info' ? activeClass : inactiveClass]" to="/cargar_info">
 
-          <span class="mx-4">Cargar Información</span>
+          <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Cargar Información</span>
         </router-link>
 
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
           :class="[$route.name === 'agregar_moderador' ? activeClass : inactiveClass]" to="/agregar_moderador">
 
-          <span class="mx-4">Agregar Moderador</span>
+          <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Agregar Moderador</span>
         </router-link>
 
 

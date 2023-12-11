@@ -4,7 +4,7 @@
       <label for="idTra">
 
 
-        SELECCION DE MODERADOR:
+        Selección de moderador:
       </label>
       <select id="idMod" v-model="selectedIdMod" @change="fetchData">
         <option v-for="idMod in idModList" :key="idMod.ID_Mod" :value="idMod.ID_Mod">

@@ -4,7 +4,7 @@
       <div class="mainContainer_title">
         <label for="idTra">
 
-          SELECCIÓN DE SEDE
+          Selección de Sede
 
 
         </label>

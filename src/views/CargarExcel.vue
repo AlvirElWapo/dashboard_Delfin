@@ -2,7 +2,7 @@
     <div class="mainContainer">
         <div class="mainContainer_title">
             <label for="idTra" class="boldText">
-                Carga de Información de Ponencias
+                Carga de Información de Ponencias <font-awesome-icon class="icon" icon="fa-solid fa-file-excel"/>
             </label>
             <p>Para asegurar una carga correcta de las Ponencias, el archivo debe seguir el formato especificado. A continuación, se presenta un ejemplo detallado de cómo debería estructurarse:</p>
             <img src="/ejemplo_archivo_ponencias.jpg" alt="Ejemplo de archivo moderadores">
@@ -11,7 +11,7 @@
         </div>
 
         <input type="file" ref="fileInputPonencias" style="display: none" @change="handleFilePonenciasChange">
-        <button class="loadBtn" @click="openFilePonenciasInput">Seleccionar archivo</button>
+        <button class="loadBtn" @click="openFilePonenciasInput">Seleccionar archivo  <font-awesome-icon class="icon" icon="fa-solid fa-arrow-up-from-bracket"/> </button>
         <div v-if="selectedFilePonenciasName">{{ selectedFilePonenciasName }}</div>
     </div>
 
@@ -27,7 +27,7 @@
         </div>
 
         <input type="file" ref="fileInputModeradores" style="display: none" @change="handleFileModeradoresChange">
-        <button class="loadBtn" @click="openFileModeradoresInput">Seleccionar archivo</button>
+        <button class="loadBtn" @click="openFileModeradoresInput">Seleccionar archivo <font-awesome-icon class="icon" icon="fa-solid fa-arrow-up-from-bracket"/> </button>
         <div v-if="selectedFileModeradoresName">{{ selectedFileModeradoresName }}</div>
     </div>
 </template>
