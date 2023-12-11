@@ -77,7 +77,7 @@ function obtenerIdMod() {
 // Función para enviar el ID_MOD al servidor.
 function enviarIdModAlServidor(idMod) {
   // Envía el ID_MOD al servidor al cargar la vista.
-  axios.post('http://localhost:1234/moderador_activo', { ID_MOD: idMod })
+  axios.post('http://localhost:1234/moderador_activo', { Id_Mod: idMod })
     .then(response => {
       // Manejar la respuesta del servidor si es necesario.
     })

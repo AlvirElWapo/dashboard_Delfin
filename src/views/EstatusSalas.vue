@@ -1,137 +1,61 @@
 <template>
   <div class="mainContainer">
 
-    <div class="mainContainer_title  titleContainer">
+    <div class="mainContainer_title">
       <label for="ubicacion">Selección de Edificio:</label>
       <select id="ubicacion" v-model="selectedUbicacion" @change="fetchData">
         <option v-for="edificio in edificiosList" :key="edificio.UBICACION" :value="edificio.UBICACION">
           {{ edificio.UBICACION }}
         </option>
       </select>
-      <div class="update-button-container">
-        <button @click="refreshData" class="update-button"><font-awesome-icon class="icon" icon="fa-solid fa-repeat" /> Actualizar Datos </button>
-      </div>
     </div>
+<div class="update-button-container">
+    <button @click="refreshData" class="update-button">Actualizar Datos</button>
+  </div>
 
-    <!-- TABLA ACTIVOS -->
-    <div class="mainContainer mainContainer2">
-      <div class="moderador">MODERADORES CONFIRMADOS:</div>
-      <div class="mt-8"></div>
-      <div class="flex flex-col mt-8">
-        <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-          <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-            <table class="min-w-full">
-              <thead>
-                <tr>
-                  <th
-                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                    Moderador
-                  </th>
-                  <!-- Remove placeholders for Sala and Area if not needed -->
-                  <th
-                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                    Sala
-                  </th>
-                  <th
-                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                    Area
-                  </th>
-                  <th
-                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                    Estatus
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody class="bg-white">
-                <tr v-for="(user, index) in activeUsers" :key="index">
-                  <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                    <div class="text-sm font-medium leading-5 text-gray-900">
-                      {{ user.Moderador }}
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                    {{ user.Sala }}
-                  </td>
-                  <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                    {{ user.Area_Deseada }}
-                  </td>
-                  <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                    <!-- Estatus handling -->
-                    <div class="estatus">
-                      <p
-                        :class="{ 'text-gray': estado === 'Pendiente', 'text-green': estado === 'Abierta', 'text-red': estado === 'Cerrada' }">
-                        {{ estado }}
-                      </p>
-                      <select class="desplegable" id="estado" v-model="estado">
-                        <option value="Pendiente">Pendiente</option>
-                        <option value="Abierta">Abierta</option>
-                        <option value="Cerrada">Cerrada</option>
-                      </select>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-
-
-
-
+<!-- TABLA ACTIVOS -->
+  <div class="mainContainer">
+    <label >MODERADORES CONFIRMADOS:</label>
     <div class="mt-8"></div>
-    <div class="mainContainer mainContainer2 flex flex-col mt-8">
+    <div class="flex flex-col mt-8">
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-
-          <div class="moderador" for="ubicacion">MODERADORES SIN CONFIRMAR:<p class="moderador warning">DAR ATENCIÓN
-              URGENTE </p>
-          </div>
           <table class="min-w-full">
             <thead>
               <tr>
-                <th
-                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                   Moderador
                 </th>
                 <!-- Remove placeholders for Sala and Area if not needed -->
-                <th
-                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                   Sala
                 </th>
-                <th
-                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                   Area
                 </th>
-                <th
-                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                   Estatus
                 </th>
               </tr>
             </thead>
 
             <tbody class="bg-white">
-              <tr v-for="(user, index) in allUsers" :key="index">
+              <tr v-for="(user, index) in activeUsers" :key="index">
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <div class="text-sm font-medium leading-5 text-gray-900">
-                    {{ user.Moderador }}
+                    {{ user.Moderador}}
                   </div>
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  {{ user.Sala }}
+                  {{user.Sala}}
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  {{ user.Area_Deseada }}
+                  {{user.Area_Deseada}} 
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <!-- Estatus handling -->
                   <div class="estatus">
-                    <p
-                      :class="{ 'text-gray': estado === 'Pendiente', 'text-green': estado === 'Abierta', 'text-red': estado === 'Cerrada' }">
+                    <p :class="{ 'text-gray': estado === 'Pendiente','text-green': estado === 'Abierta', 'text-red': estado === 'Cerrada' }">
                       {{ estado }}
                     </p>
                     <select class="desplegable" id="estado" v-model="estado">
@@ -148,6 +72,73 @@
       </div>
     </div>
   </div>
+
+
+    <div class="mt-8"></div>
+    <div class="flex flex-col mt-8">
+      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+
+          <label for="ubicacion">MODERADORES INCONFIRMADOS:<br>DAR ATENCIÓN URGENTE </label>
+          <table class="min-w-full">
+            <thead>
+              <tr>
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                  Moderador
+                </th>
+                <!-- Remove placeholders for Sala and Area if not needed -->
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                  Sala
+                </th>
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                  Area
+                </th>
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                  AGREGAR EMERGENTE 
+                </th>
+              </tr>
+            </thead>
+
+            <tbody class="bg-white">
+              <tr v-for="(user, index) in allUsers" :key="index">
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                  <div class="text-sm font-medium leading-5 text-gray-900">
+                    {{ user.Moderador}}
+                  </div>
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                  {{user.Sala}}
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                  {{user.Area_Deseada}} 
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                  <div class="estatus">
+                    <select id="emergente" v-model="mod_EmergenteSeleccionado">
+                      <option v-for="emergente in posiblesMods" :key="emergente.MODERADOR" :value="emergente">
+                      {{ emergente.MODERADOR }}
+                      </option>
+                    </select>
+                    <button @click="confirmarCambios(user.Moderador, user.ID_Mod)">Confirmar</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
 </template>
   
 <script setup lang="ts">
@@ -166,7 +157,9 @@ const estado = ref('Pendiente');
 const allUsers = ref<User[]>([]);
 const activeUsers = ref<User[]>([]);
 const edificiosList = ref<{ UBICACION: string }[]>([]);
+const posiblesMods = ref<{ MODERADOR: string, ID_Mod:string }[]>([]);
 const selectedUbicacion = ref<string | null>(null);
+const mod_EmergenteSeleccionado = ref<{ MODERADOR: string, ID_Mod: string }>({ MODERADOR: '', ID_Mod: '' });
 
 const refreshData = async () => {
   await fetchData();
@@ -186,7 +179,37 @@ onMounted(async () => {
   } catch (error) {
     console.error('Error fetching edificios data:', error);
   }
+
+//MODSEMER
+
+  try {
+    const posibles_mods_response= await axios.get<{ MODERADOR: string }[]>('http://localhost:1234/posibles_emergentes');
+    posiblesMods.value = posibles_mods_response.data;
+    console.log(posiblesMods.value);
+
+    if (posiblesMods.value.length > 0) {
+      mod_EmergenteSeleccionado.value.MODERADOR = posiblesMods.value[0].MODERADOR;
+      mod_EmergenteSeleccionado.value.ID_Mod = posiblesMods.value[0].ID_Mod;
+    }
+  } catch (error) {
+    console.error('Error fetching MODERADORES EMERGENTES data:', error);
+  }
 });
+
+const confirmarCambios = async (actualModerador,ID_Mod) => {
+console.log(`intentando cambiar ${actualModerador},${ID_Mod} POR ${mod_EmergenteSeleccionado.value.MODERADOR}, ${mod_EmergenteSeleccionado.value.ID_Mod}`);
+  try {
+    await axios.post('http://localhost:1234/crear_emergente',
+    {
+      actualModerador: actualModerador,
+      posibleModerador: mod_EmergenteSeleccionado.value
+    });
+    console.log('Cambio realizado con éxito');
+  } catch (error) {
+    console.error('Error al realizar el cambio:', error);
+  }
+   
+};
 
 const fetchData = async () => {
   try {
@@ -196,6 +219,8 @@ const fetchData = async () => {
       });
       allUsers.value = response.data;
     }
+
+  await fetchData_Activos();
   } catch (error) {
     console.error('Error fetching all moderador data:', error);
   }
@@ -237,6 +262,22 @@ const fetchData_Activos = async () => {
     console.error('Error fetching active moderadores:', error);
   }
 };
+
+
+const enviarIdModAlServidor = (idMod) => 
+{
+  axios.post('http://localhost:1234/moderador_activo', { ID_Mod: idMod })
+    .then(response => {
+    })
+    .catch(error => {
+      console.error('ERROR AL ENVIAR ID_MOD AL SERVIDOR:', error);
+    });
+};
+
+
+
+
+
 </script>
 
   
