@@ -45,7 +45,12 @@
 
 
       <nav class="mt-10">
-        <p class="banner banner_delfin text-xs font-semibold text-gray-400">Programa Delfin <br>{{currentTime}}</p>
+        <p class="banner banner_delfin text-xs font-semibold text-gray-400">Programa Delfin
+        <div class="clock">
+          {{ currentTime }}
+        </div>
+
+        </p>
 
 
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink v-show flex items-center px-6 py-2  duration-200"
@@ -58,7 +63,7 @@
           <span class="mx-4">Control de Moderadores</span>
         </router-link>
 
-        <router-link  v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
+        <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
           :class="[$route.name === 'SEDES' ? activeClass : inactiveClass]" to="/busq_por_sede">
           <span class="mx-4">Buscar Por Sede</span>
         </router-link>
@@ -95,7 +100,7 @@
 
           <span class="mx-4">Estatus de Salas</span>
         </router-link>
-        
+
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
           :class="[$route.name === 'cargar_info' ? activeClass : inactiveClass]" to="/cargar_info">
 
@@ -267,9 +272,16 @@ onBeforeUnmount(() => {
   text-align: right;
 }
 
+.clock {
+  margin-top: 0.4vw;
+  color: #000;
+}
+
 .banner_delfin {
   background-color: var(--main-orange);
   text-align: center;
   font-size: 1.1vw;
-}
-</style>
+  margin-bottom: 0.2vw;
+  height: 3vw;
+  justify-content: space-around;
+}</style>
