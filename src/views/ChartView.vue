@@ -26,9 +26,19 @@
       </div>
 
       <div class="mt-6">
+        <h4 class="text-gray-600">ID's de moderadores activos:</h4>
+        <div>
+          <!--IDS DE LOS USUARIOS ACTIVOS-->
+          <p v-for="(moderador, index) in moderadoresActivos" :key="index">
+            <b>{{ moderador.ID_Mod }}</b>
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-6">
         <h4 class="text-gray-600">Ponencias Activas:</h4>
         <div>
-          <p v-for="(state, index) in salas_activas" :key="index"> <b>{{ state }}</b></p>
+          <p v-for="(idsModeradores, index) in salas_activas" :key="index"> <b>{{ idsModeradores }}</b></p>
         </div>
         <h4 class="text-gray-600">Ponencias Finalizadas con Exito:</h4>
         <div>
@@ -56,6 +66,7 @@ import { ref, onMounted } from 'vue';
 const salas_activas = ref([]);
 const salas_concluidas_exitosamente = ref([]);
 const salas_inconclusas = ref([]);
+const moderadoresActivos = ref([]);
 
 const updateData = async () => {
   try {
@@ -73,8 +84,18 @@ const updateData = async () => {
   }
 };
 
+const obtenerModeradoresActivos = async () => {
+  try {
+    const response = await axios.get('http://localhost:1234/id_moderadores_conectados');
+    moderadoresActivos.value = response.data;
+  } catch (error) {
+    console.error('Error obteniendo moderadores activos:', error);
+  }
+};
+
 onMounted(() => {
   setInterval(updateData, 5000);
   updateData();
+  obtenerModeradoresActivos();
 });
 </script>

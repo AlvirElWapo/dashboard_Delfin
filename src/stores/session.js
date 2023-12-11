@@ -6,6 +6,7 @@ export const useGlobalSession = defineStore('sesion', {
     full_name: '',
     user_type: '',
     email: '',
+    id: '',
   }),
   actions: {
     setupSessions(userData) {
@@ -13,6 +14,7 @@ export const useGlobalSession = defineStore('sesion', {
       this.$state.full_name = userData.full_name;
       this.$state.user_type = userData.user_type;
       this.$state.email = userData.email;
+      this.$state.id = userData.id;
     },
   },
 });
