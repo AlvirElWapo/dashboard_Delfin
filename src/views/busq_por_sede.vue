@@ -8,13 +8,13 @@
 
 
         </label>
-      </div>
-      <select id="idTra" v-model="selectedSalon" @change="fetchData">
-        <option v-for="idTra in idTraList" :key="idTra.Salon" :value="idTra.Salon">
-          {{ idTra.Salon }}
-        </option>
-      </select>
+        <select id="idTra" v-model="selectedSalon" @change="fetchData">
+          <option v-for="idTra in idTraList" :key="idTra.Salon" :value="idTra.Salon">
+            {{ idTra.Salon }}
+          </option>
+        </select>
 
+      </div>
       <div class="mt-8"></div>
       <div class="flex flex-col mt-8">
         <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -211,6 +211,7 @@ const fetchData = async () => {
 .mainContainer_title {
   text-align: left;
   font-size: 1.6vw;
+  color: var(--main-orange);
 }
 
 .mainContainer_title select {

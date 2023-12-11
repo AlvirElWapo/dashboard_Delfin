@@ -154,7 +154,7 @@ const readExcelHeaders = async (file) => {
 }
 
 .mainContainer {
-    width: 100%;
+    width: 65vw;
     height: auto;
     padding: 4vw 1vw;
     background-color: var(--white);

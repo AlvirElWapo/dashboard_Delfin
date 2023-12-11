@@ -1,17 +1,21 @@
 <template>
   <div>
     <div class="mainContainer">
-      <label class="mainContainer_title">
+      <div class="mainContainer_title">
+        <label for="idTra">
 
-        SELECCIÓN DE SEDE
+          SELECCIÓN DE SEDE
 
 
-      </label>
-      <select id="idTra" v-model="selectedSalon" @change="fetchData">
-        <option v-for="idTra in idTraList" :key="idTra.Salon" :value="idTra.Salon">
-          {{ idTra.Salon }}
-        </option>
-      </select>
+        </label>
+
+
+        <select id="idTra" v-model="selectedSalon" @change="fetchData">
+          <option v-for="idTra in idTraList" :key="idTra.Salon" :value="idTra.Salon">
+            {{ idTra.Salon }}
+          </option>
+        </select>
+      </div>
 
       <div class="mt-8"></div>
       <div class="flex flex-col mt-8">
@@ -210,6 +214,7 @@ const fetchData = async () => {
 .mainContainer_title {
   text-align: left;
   font-size: 1.6vw;
+  color: var(--main-orange);
 }
 
 .mainContainer_title select {

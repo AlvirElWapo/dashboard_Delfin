@@ -218,6 +218,7 @@ const printAsistencia = async (singleValue) => {
 .mainContainer_title{
   text-align: left;
   font-size: 1.6vw;
+  color: var(--main-orange);
 }
 
 .mainContainer_title select{

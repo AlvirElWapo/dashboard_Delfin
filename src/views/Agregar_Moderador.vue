@@ -1,6 +1,6 @@
 //FALTA COMPLETAR CAMPOS...
 <template>
-  <div>
+  <div class="main_container">
     <Breadcrumb breadcrumb="AGREGAR MODERADOR" />
     <div class="mt-4">
       <h4 class="text-gray-600">Moderador Emergente </h4>
@@ -148,7 +148,7 @@ const register = () => {
 
 <style scoped>
 form{
-  width: 75vw;
+  width: 65vw;
 }
 
 .titleForm{
@@ -165,4 +165,6 @@ form{
     opacity: 0.8;
     scale: 1.04;
   }
+
+
 </style>

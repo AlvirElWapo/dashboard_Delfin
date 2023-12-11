@@ -219,6 +219,7 @@ th.px-6 {
 
 .mainContainer_title {
   text-align: left;
+  color: var(--main-orange);
   font-size: 1.6vw;
 }
 

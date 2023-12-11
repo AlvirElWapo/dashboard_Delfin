@@ -282,6 +282,6 @@ onBeforeUnmount(() => {
   text-align: center;
   font-size: 1.1vw;
   margin-bottom: 0.2vw;
-  height: 3vw;
+  height: auto;
   justify-content: space-around;
 }</style>
