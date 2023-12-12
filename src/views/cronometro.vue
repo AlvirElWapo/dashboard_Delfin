@@ -21,15 +21,17 @@
 
 
 
-      <tbody class="bg-white">
-        <tr v-for="(u, index) in users" :key="index">
-          <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-            <div class="text-sm font-small leading-5 text-gray-900">
-              {{ u.Titulo }}
-            </div>
-          </td>
-        </tr>
-      </tbody>
+      <br>
+
+      <label for="idTra">
+        Proyecto:
+      </label>
+
+      <span>
+        {{ truncatedTitulo }}
+      </span>
+      
+      <br>
 
       <br>
       <p class="text-center">
@@ -56,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import axios from 'axios';
 import { usePonenciasGlobales } from '../stores/ponencias.js';
 import { useGlobalSession } from '../stores/session.js';
@@ -67,6 +69,9 @@ const timer = ref(0);
 const selectedTime = ref(1);
 const isRunning = ref(false);
 const intervalId = ref<number | null>(null);
+
+// Método computado para truncar el título
+const truncatedTitulo = ref('');
 
 onMounted(() => {
   // Cuando la vista se carga, obtener el ID_MOD y enviarlo al servidor automáticamente.
@@ -161,15 +166,16 @@ function stopChronometer() {
     clearInterval(intervalId.value);
     intervalId.value = null;
 
-    console.log("PONENCIA CONCLUIDA21: " + selectedIdTra.value)
+    console.log("PONENCIA CONCLUIDA: " + selectedIdTra.value)
 
     axios.post('http://localhost:1234/desactivar_Sala', { ID_tra: selectedIdTra.value })
       .then(response => {
         return axios.post('http://localhost:1234/concluir_Ponencia', { ID_tra: selectedIdTra.value });
       })
       .then(response => {
-
+        ponencias.quitarTitulo();
         ponencias.finalizarPonencia();
+        
         
         router.push({ name: 'pase_de_lista' });
       })
@@ -187,6 +193,7 @@ function resetChronometer() {
 onMounted(() => 
 {
   resetChronometer();
+  //obteneraTituloPonencia();
 });
 
 watch(() => timer.value, () => {
@@ -204,8 +211,13 @@ interface Ponencias {
   id_tra: string[];
 }
 
+interface Titutlos {
+  titulo: string[];
+}
+
 const users = ref<User[]>([]);
 const ponenciasL = ref<Ponencias[]>([]);
+const titulosPonencias = ref<Titutlos[]>([]);
 const idTraList = ref<{ ID_Tra: string }[]>([]);
 const selectedIdTra = ref<string | null>(null);
 
@@ -225,47 +237,44 @@ onMounted(async () => {
     const ponenciasResponse = await axios.post<{ ponenciasL: string }[]>('http://localhost:1234/ponencias_del_moderador', {
       Investigador: nombreMOD,
     });
+    
+    console.log('Solicitando títulos:');
+    const titulosPonencias = await axios.post<{ titulosPonencias: string }[]>('http://localhost:1234/get_titulos', {
+      Investigador: nombreMOD,
+    });
+    console.log('Títulos BAJADOS BDD:', titulosPonencias.data);
     console.log('Ponencias BAJADAS BDD:', ponenciasResponse.data);
+    /*
+    const titulosPonencias = await axios.post<{ titulosPonencias: string }[]>('http://localhost:1234/get_titulo', {
+      ID_TRA: titulosPonencias.data,
+    });
+    */
     
-    // Obtener solo los valores de ID_TRA de las ponencias
-    const ponenciasIds = ponenciasResponse.data.map(ponencia => ponencia.ID_TRA);
-    console.log('PONENCIAS ID:', ponenciasIds);
-
-    // Obtener solo los valores de ID_TRA de las secciones de preguntas
-    //const seccionesPreguntas = Array.from({ length: 3 }, (_, index) => `Sección de Preguntas ${index + 1}`);
-
-
-    // Llamar a una acción en el store para organizar y dividir las ponencias
-    //ponencias.organizarYDividirPonencias(ponenciasIds);
-
-    // Imprimir el estado actual del store en la consola
-    console.log('Estado actual del ARREGLO PONENCIAS :', ponencias.$state.ponencias);
-
-
-    const shuffledPonencias = ponenciasResponse.data;
-    console.log('Ponencias obtenidas shufl:', shuffledPonencias);
-    //ponencias.organizarYDividirPonencias(shuffledPonencias);
-
-
-    console.log('Longitud después del for de las ponencias:', ponencias.$state.ponencias.length);
-
-    //const shuffledPonencias = ponenciasResponse.data;
-    console.log('Ponencias obtenidas shufl:', ponencias.$state.ponencias);
+    const titulo = ponencias.$state.titulos[0];
+    //console.log("TITULO: " + titulo)
+    if (titulo) {
+      const maxLength = 50;
+      truncatedTitulo.value = titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
+    }
     
-    console.log('Estado2 actual de las ponencias:', ponencias.$state.ponencias[0]);
+    const datosPonencias = ponenciasResponse.data;
 
-    //const idTraResponse = await axios.get<{ ID_Tra: string }[]>('http://localhost:1234/id_tras');
-    //const shuffledIdTraList = getRandomElements(idTraResponse.data, 7);
+    const datosTitulos = titulosPonencias.data;
 
     if(!ponencias.$state.inicializado)
     {
       ponencias.iniciar();
       for (let i = 0; i < 15; i ++) 
       {
-        ponencias.addPonencia(shuffledPonencias[i]['ID_TRA']);
-        console.log("NUEVO BLOQUE CREADO") 
-      | console.log(ponencias.$state.ponencias) 
+        ponencias.addPonencia(datosPonencias[i]['ID_TRA'], datosTitulos[i]['Titulo']);
+        ponencias.addTitulo(datosTitulos[i]['Titulo']);
       }
+      const titulo = ponencias.$state.titulos[0];
+    //console.log("TITULO: " + titulo)
+    if (titulo) {
+      const maxLength = 125;
+      truncatedTitulo.value = titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
+    }
     }else
     {
       if(ponencias.$state.ponencias.length != 0)
@@ -277,25 +286,29 @@ onMounted(async () => {
  
     const constantValue = ponencias.$state.ponencias[0];
 
+    // Ahora ejecuta la lógica para truncar el título
+    
+    
+
     if (idTraList.value.length > 0) {
       selectedIdTra.value = ponencias.$state.ponencias[0];
-      fetchData();
+      //fetchData();
     }
   } catch (error) {
     console.error('Error fetching data:', error);
   }
   selectedIdTra.value = ponencias.$state.ponencias[0];
-  console.log("VALOR UTILIZADO DE " + ponencias.$state.ponencias[0].ID_TRA + ": " + selectedIdTra.value )
+  console.log("PONENCIA ACTUAL: " + selectedIdTra.value )
 
 
 });
 
+
 const fetchData = async () => {
   try {
     selectedIdTra.value = ponencias.$state.ponencias[0];
-    const selectedId = ponencias.$state.ponencias[0];
-    console.log('Selected IdTra:', selectedId);
-    console.log("totulo fetch: " + selectedId.value )
+    //const selectedId = ponencias.$state.ponencias[0];
+    console.log("TÍTULO: " + selectedId.value )
     if (selectedIdTra.value) {
       console.log('Selected ID_TRA titulo:', selectedIdTra.value);
       const response = await axios.post<User[]>('http://localhost:1234/get_titulo', {

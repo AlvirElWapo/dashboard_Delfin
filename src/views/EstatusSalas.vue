@@ -226,11 +226,7 @@
       </div>
     </div>
   </div>
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 38ef859c3936932a356ff2138fa87cdf97429751
 </template>
   
 <script setup lang="ts">
