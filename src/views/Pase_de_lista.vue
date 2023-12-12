@@ -151,7 +151,7 @@
 
 </template>
 
-  <script setup lang="ts">
+<script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import  router  from '../router'; 
@@ -175,18 +175,21 @@ onMounted(async () => {
   try {
     const response = await axios.get('http://localhost:1234/salas_concluidas');
     idTraList.value = ponencias.$state.finalizada;
+    console.log("LISTA DE PONENCIAS DISPONIBLES12: " + ponencias.$state.finalizada);
+    console.log("LISTA DE PONENCIAS DISPONIBLES123: " + idTraList);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
-  console.log(idTraList.value);
+  console.log("asdasd "+idTraList.value);
   if (idTraList.value.length > 0) {
     selectedIdTra.value = idTraList.value[0];
+    console.log("selectdas12  " + selectedIdTra.value )
     fetchData();
   }
   console.log("LISTA DE PONENCIAS DISPONIBLES: " + ponencias.$state.ponencias);
-  ponencias.finalizarPonencia()
+  //ponencias.finalizarPonencia()
   selectedIdTra.value = ponencias.$state.finalizada;
-  console.log("VALOR UTILIZADO DE " + ponencias.$state.ponencias + ": " + selectedIdTra.value )
+  console.log("VALOR UTILIZADO01 DE : " + selectedIdTra.value[0] )
 
   fetchData();
 });
@@ -200,6 +203,10 @@ const asistenciaValues = computed(() => {
 const fetchData = async () => {
   try {
     if (selectedIdTra.value) {
+      //console.log('Tamaño:', ponencias.$state.tam_de_bloque);
+      //console.log('Total Salas:', ponencias.$state.total_salas);
+      const selectedId = selectedIdTra.value[0];
+      console.log('Selected IdTra123:', selectedId);
       const response = await axios.post<User[]>('http://localhost:1234/informacion_de_equipos', {
         Id_Trab: selectedIdTra.value,
       });
@@ -222,6 +229,8 @@ const printAsistencia = async () => {
 
   try {
     if (selectedIdTra.value) {
+      const selectedId = selectedIdTra.value[0];
+      console.log('Selected IdTra ASIS:', selectedId);
       const response = await axios.post('http://localhost:1234/asistencia', {
         Id_Trab: selectedIdTra.value,
         Asistencia: stringValues,
@@ -230,8 +239,17 @@ const printAsistencia = async () => {
           'Content-Type': 'application/json',
         },
       });
+      console.log('Total Salas:', ponencias.$state.total_salas);
+      console.log('Tamaño:', ponencias.$state.tam_de_bloque);
+      console.log('-----------------------------------------------------');
       console.log('Server Response:', response.data);
-      router.push('/cronometro');
+      if (ponencias.finSala()){
+          router.push({ name: 'sesion_depre' })
+        } else
+        {
+          router.push({ name: 'cronometro' });
+        }
+      
     } else {
       console.error('No selectedIdTra to send with the request.');
     }

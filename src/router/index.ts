@@ -19,7 +19,7 @@ import login from "../views/login/login.vue";
 import EstatusSalas from "../views/EstatusSalas.vue"
 import CargarExcel from "../views/CargarExcel.vue"
 import control_moderadores from "../views/control_moderadores.vue";
-
+import ses_preg from "../views/Preguntas.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -106,6 +106,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/control_moderadores",
     name: "control_moderadores",
     component: control_moderadores,
+  },
+  {
+    path: "/sesion_depre",
+    name: "sesion_depre",
+    component: ses_preg,
   },
   {
     path: '/',
