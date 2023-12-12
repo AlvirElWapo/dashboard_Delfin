@@ -1,52 +1,4 @@
 <template>
-  <div class="mainContainer">
-
-    <div class="mainContainer_title">
-      <label for="ubicacion">Selección de Edificio:</label>
-      <select id="ubicacion" v-model="selectedUbicacion" @change="fetchData">
-        <option v-for="edificio in edificiosList" :key="edificio.UBICACION" :value="edificio.UBICACION">
-          {{ edificio.UBICACION }}
-        </option>
-      </select>
-    </div>
-      <div class="update-button-container">
-        <button @click="refreshData" class="update-button">Actualizar Datos</button>
-      </div>
-  </div>
-<div class="update-button-container">
-    <button @click="refreshData" class="update-button">Actualizar Datos</button>
-  </div>
-
-<!-- TABLA ACTIVOS -->
-  <div class="mainContainer">
-    <label >MODERADORES CONFIRMADOS:</label>
-    <div class="mt-8"></div>
-    <div class="flex flex-col mt-8">
-      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-          <table class="min-w-full">
-            <thead>
-              <tr>
-                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                  Moderador
-                </th>
-                <!-- Remove placeholders for Sala and Area if not needed -->
-                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                  Sala
-                </th>
-                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                  Area
-                </th>
-                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                  Estatus
-                </th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
 <!-- TABLA ACTIVOS -->
   <div class="mainContainer">
     <label >MODERADORES CONFIRMADOS:</label>
@@ -167,65 +119,7 @@
     </div>
 
 
-  <div class="mt-8"></div>
-  <div class="flex flex-col mt-8">
-    <div class="flex flex-col mt-8">
-      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
 
-          <label for="ubicacion">MODERADORES INCONFIRMADOS:<br>DAR ATENCIÓN URGENTE </label>
-          <table class="min-w-full">
-            <thead>
-              <tr>
-                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                  Moderador
-                </th>
-                <!-- Remove placeholders for Sala and Area if not needed -->
-                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                  Sala
-                </th>
-                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                  Area
-                </th>
-                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                  AGREGAR EMERGENTE 
-                </th>
-              </tr>
-            </thead>
-
-            <tbody class="bg-white">
-              <tr v-for="(user, index) in allUsers" :key="index">
-                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  <div class="text-sm font-medium leading-5 text-gray-900">
-                    {{ user.Moderador}}
-                    {{ user.Moderador}}
-                  </div>
-                </td>
-                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  {{user.Sala}}
-                  {{user.Sala}}
-                </td>
-                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  {{user.Area_Deseada}} 
-                  {{user.Area_Deseada}} 
-                </td>
-                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  <div class="estatus">
-                    <select id="emergente" v-model="mod_EmergenteSeleccionado">
-                      <option v-for="emergente in posiblesMods" :key="emergente.MODERADOR" :value="emergente">
-                      {{ emergente.MODERADOR }}
-                      </option>
-                    </select>
-                    <button @click="confirmarCambios(user.Moderador, user.ID_Mod)">Confirmar</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </template>
   
