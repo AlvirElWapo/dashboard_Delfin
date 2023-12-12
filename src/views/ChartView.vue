@@ -6,17 +6,7 @@
       <h4 class="text-gray-600">Charts</h4>
 
       <div class="mt-6">
-        <div
-          class="
-            my-6
-            overflow-hidden
-            bg-white
-            rounded-md
-            shadow
-            grid grid-cols-2
-            gap-3
-          "
-        >
+        <div class="my-6 overflow-hidden bg-white rounded-md shadow grid grid-cols-2 gap-3">
           <!-- <LineChart /> -->
           <DonutChart />
           <DonutChartDates/>
@@ -88,6 +78,7 @@ const obtenerModeradoresActivos = async () => {
   try {
     const response = await axios.get('http://localhost:1234/id_moderadores_conectados');
     moderadoresActivos.value = response.data;
+    console.log(moderadoresActivos.value);
   } catch (error) {
     console.error('Error obteniendo moderadores activos:', error);
   }

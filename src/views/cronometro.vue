@@ -12,12 +12,7 @@
         EQUIPO A EVALUAR:
       </label>
 
-      <!-- <select id="idTra" v-model="selectedIdTra" @change="fetchData"> -->
-      <!--   <option v-for="idTra in idTraList" :key="idTra.ID_Tra" :value="idTra.ID_Tra"> -->
         {{ ponencias.$state.ponencias[0] }}
-        
-      <!--   </option> -->
-      <!-- </select> -->
 
 
 
