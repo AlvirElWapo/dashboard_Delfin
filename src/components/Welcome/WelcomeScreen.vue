@@ -92,39 +92,47 @@ export default {
     };
   },
   methods: {
-    async login() 
-    {
-      try {
-        const response = await axios.post('http://localhost:1234/login', this.userData);
-        if (response.data.success) {
-          const userData = response.data.user;
-          this.userType = userData.user_type || 'moderador';
-          const session = useGlobalSession();
-          session.setupSessions({ ...userData, user_type: this.userType });
 
-          console.log("Session data:", session.$state);
 
-          if (this.userType === "moderador" && userData.sala) {
-            try {
-              console.log("CHEQUEO PARAMETRO -------------------" + userData.sala);
-              await axios.post('http://localhost:1234/activar_s_global', { id_sala: userData.sala });
-              router.push('/cronometro');
-            } catch (err) {
-              console.error('Error activating sala:', err);
-            }
-          } else {
-            router.push('/dashboard');
+
+async login() {
+  try {
+    const response = await axios.post('http://localhost:1234/login', this.userData);
+    if (response.data.success) {
+      const userData = response.data.user;
+      this.userType = userData.user_type || 'moderador';
+      const session = useGlobalSession();
+      session.setupSessions({ ...userData, user_type: this.userType });
+
+      // Fetch Salas Concluidas
+      const salasConcluidasResponse = await axios.get('http://localhost:1234/get_salas', { params: { state: 'concluidas' } });
+      const salasConcluidas = salasConcluidasResponse.data.Moderador.map(m => m.MODERADOR);
+
+      // Check if the moderator is in the Salas Concluidas list
+      if (salasConcluidas.includes(session.$state.full_name)) {
+        console.log("Moderator's session is concluded.");
+        // Redirect to a specific route, for example '/session-ended'
+        router.push('/sala_moderada'); 
+      } else {
+        if (this.userType === "moderador" && userData.sala) {
+          try {
+            await axios.post('http://localhost:1234/activar_s_global', { id_sala: userData.sala });
+            router.push('/cronometro');
+          } catch (err) {
+            console.error('Error activating sala:', err);
           }
         } else {
-          console.log("Login failed");
+          router.push('/dashboard');
         }
-      } catch (error) {
-        console.log("ENVIANDO:" + this.userData.username)
-        console.log("ENVIANDO:" + this.userData.password)
-        console.error('Login error:', error);
       }
+    } else {
+      console.log("Login failed");
     }
-
+  } catch (error) {
+    console.log("ENVIANDO:" + this.userData.username)
+    console.error('Login error:', error);
+  }
+}
 
     },
     setup() {

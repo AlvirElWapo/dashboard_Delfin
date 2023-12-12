@@ -22,6 +22,7 @@ import control_moderadores from "../views/control_moderadores.vue";
 import ses_preg from "../views/Preguntas.vue";
 import AsistenciaAutom from "../views/AsistenciaAutom.vue";
 import PONENCIA_NO_AUTORIZADA from "../views/PONENCIA_NO_AUTORIZADA.vue";
+import PonenciaFinalizada from "../views/SalaModerada.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -29,6 +30,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/sala_moderada",
+    name: "sala_moderada",
+    component: PonenciaFinalizada,
   },
   {
     path: "/no_autorizado",
