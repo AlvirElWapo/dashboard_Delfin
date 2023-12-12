@@ -1,13 +1,6 @@
 <template>
-<<<<<<< HEAD
 <div class="mainContainer">
     <div class="mainContainer_title">
-
-=======
-  <div class="mainContainer">
-
-    <div class="mainContainer_title">
->>>>>>> refs/remotes/origin/master
       <label for="ubicacion">Selección de Edificio:</label>
       <select id="ubicacion" v-model="selectedUbicacion" @change="fetchData">
         <option v-for="edificio in edificiosList" :key="edificio.UBICACION" :value="edificio.UBICACION">
@@ -15,7 +8,6 @@
         </option>
       </select>
     </div>
-<<<<<<< HEAD
 
   <button @click="toggleTable('confirmedModerators')" class="toggle-button">
     TABLA CONFIRMADOS 
@@ -32,13 +24,10 @@
 
 
 <div v-if="visibleTables.confirmedModerators">
-=======
-  </div>
 <div class="update-button-container">
     <button @click="refreshData" class="update-button">Actualizar Datos</button>
   </div>
 
->>>>>>> refs/remotes/origin/master
 <!-- TABLA ACTIVOS -->
   <div class="mainContainer">
     <label >MODERADORES CONFIRMADOS:</label>
@@ -102,13 +91,10 @@
 
 
 
-<<<<<<< HEAD
 <div v-if="visibleTables.unconfirmedModerators">
 <!-- TABLA INACTIVOS  -->
-=======
 
 
->>>>>>> refs/remotes/origin/master
   <div class="mt-8"></div>
   <div class="flex flex-col mt-8">
     <div class="flex flex-col mt-8">
@@ -166,7 +152,6 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
 <!-- FIN DE TABLA INCONFIRMADOS -->
 </div>
 
@@ -184,9 +169,6 @@
 
 
 
-=======
-  </div>
->>>>>>> refs/remotes/origin/master
 </template>
   
 <script setup lang="ts">

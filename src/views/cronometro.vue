@@ -8,6 +8,7 @@
         {{ ponencias.$state.numero_bloque }}
       </div>
       <div class="equipo_title">
+      <label for="ID_Tra">
         EQUIPO A EVALUAR:
       </label>
 
