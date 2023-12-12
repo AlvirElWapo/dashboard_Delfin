@@ -2,13 +2,6 @@
   <div class="mainContainer">
 
     <div class="mainContainer_title">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    <div class="mainContainer_title">
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
       <label for="ubicacion">Selección de Edificio:</label>
       <select id="ubicacion" v-model="selectedUbicacion" @change="fetchData">
         <option v-for="edificio in edificiosList" :key="edificio.UBICACION" :value="edificio.UBICACION">
@@ -16,19 +9,13 @@
         </option>
       </select>
     </div>
+      <div class="update-button-container">
+        <button @click="refreshData" class="update-button">Actualizar Datos</button>
+      </div>
+  </div>
 <div class="update-button-container">
     <button @click="refreshData" class="update-button">Actualizar Datos</button>
   </div>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    </div>
-<div class="update-button-container">
-    <button @click="refreshData" class="update-button">Actualizar Datos</button>
-  </div>
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
 <!-- TABLA ACTIVOS -->
   <div class="mainContainer">
@@ -51,12 +38,15 @@
                   Area
                 </th>
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
                   Estatus
                 </th>
               </tr>
             </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 <!-- TABLA ACTIVOS -->
   <div class="mainContainer">
     <label >MODERADORES CONFIRMADOS:</label>
@@ -78,10 +68,6 @@
                   Area
                 </th>
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
                   Estatus
                 </th>
               </tr>
@@ -120,16 +106,6 @@
       </div>
     </div>
   </div>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            <tbody class="bg-white">
-              <tr v-for="(user, index) in activeUsers" :key="index">
-=======
-=======
->>>>>>> Stashed changes
-
-
-
 
 
 
@@ -160,10 +136,6 @@
 
             <tbody class="bg-white">
               <tr v-for="(user, index) in allUsers" :key="index">
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <div class="text-sm font-medium leading-5 text-gray-900">
                     {{ user.Moderador}}
@@ -194,32 +166,25 @@
         </div>
       </div>
     </div>
-  </div>
 
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    <div class="mt-8"></div>
-    <div class="flex flex-col mt-8">
+  <div class="mt-8"></div>
+  <div class="flex flex-col mt-8">
     <div class="flex flex-col mt-8">
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
 
           <label for="ubicacion">MODERADORES INCONFIRMADOS:<br>DAR ATENCIÓN URGENTE </label>
-          <label for="ubicacion">MODERADORES INCONFIRMADOS:<br>DAR ATENCIÓN URGENTE </label>
           <table class="min-w-full">
             <thead>
               <tr>
-                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                   Moderador
                 </th>
                 <!-- Remove placeholders for Sala and Area if not needed -->
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                   Sala
                 </th>
-                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                   Area
                 </th>
@@ -262,30 +227,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-
-
-
-
-
-
-
-
 </template>
   
 <script setup lang="ts">

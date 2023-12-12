@@ -7,6 +7,7 @@ export const usePonenciasGlobales = defineStore('ponenciasGlobales', {
     inicializado:false,
     tam_de_bloque :5,
     total_salas: 15,
+    numero_bloque: 1,
   }),
   actions: {
     addPonencia(ponencia) 

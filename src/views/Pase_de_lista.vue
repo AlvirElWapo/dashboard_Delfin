@@ -245,6 +245,7 @@ const printAsistencia = async () => {
       console.log('Server Response:', response.data);
       if (ponencias.finSala()){
           router.push({ name: 'sesion_depre' })
+          ponencias.$state.numero_bloque ++;
         } else
         {
           router.push({ name: 'cronometro' });
