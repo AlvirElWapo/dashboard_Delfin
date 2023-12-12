@@ -5,6 +5,9 @@ export const usePonenciasGlobales = defineStore('ponenciasGlobales', {
     ponencias: [], 
     finalizada: 0, 
     inicializado:false,
+    tam_de_bloque :5,
+    total_salas: 15,
+    numero_bloque: 1,
   }),
   actions: {
     addPonencia(ponencia) 
@@ -19,6 +22,20 @@ export const usePonenciasGlobales = defineStore('ponenciasGlobales', {
     iniciar()
     {
       this.$state.inicializado = true;
-    }
+    },
+    finSala()
+    {
+      this.total_salas = this.total_salas -1;
+      if(this.total_salas == 10 || this.total_salas == 5 || this.total_salas == 0)
+      {
+        return this.sesion_preguntas()
+      }
+      return false;
+    },
+    sesion_preguntas()
+    {
+      return true;
+    },
+
   },
 });

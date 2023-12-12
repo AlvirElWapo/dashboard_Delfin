@@ -2,22 +2,7 @@
   <div class="mainContainer">
     <div class="mainContainer_title">
 
-      <label for="idTra">
-        BLOQUE:
-        
-      </label>
-        {{ ponencias.$state.numero_bloque }}
-      <br>
-      <label for="idTra">
-        EQUIPO A EVALUAR:
-      </label>
-
-      <!-- <select id="idTra" v-model="selectedIdTra" @change="fetchData"> -->
-      <!--   <option v-for="idTra in idTraList" :key="idTra.ID_Tra" :value="idTra.ID_Tra"> -->
-        {{ ponencias.$state.ponencias[0] }}
-        
-      <!--   </option> -->
-      <!-- </select> -->
+<h1>SESION DE PREGUNTAS</h1>
 
 
 
@@ -70,22 +55,21 @@ const intervalId = ref<number | null>(null);
 
 onMounted(() => {
   // Cuando la vista se carga, obtener el ID_MOD y enviarlo al servidor automáticamente.
-  const idMod = session.$state.id; 
-  enviarIdModAlServidor(session.$state.id);
-  console.log("ID INICIADA SESION EN CRONOMETRO   " + session.$state.id)
+  const idMod = obtenerIdMod(); 
+  enviarIdModAlServidor(idMod);
 });
 
 // Función para obtener el ID_MOD (reemplázala con tu lógica real).
 function obtenerIdMod() {
-    console.log("OBTENIENDO DATOS -----------" + session.$state.id);
   const idMod = session.$state.id;
+  //console.log('ID_MOD obtenido:', idMod);  // Muestra el ID_MOD en la consola del navegador.
   return idMod;
 }
 
 // Función para enviar el ID_MOD al servidor.
 function enviarIdModAlServidor(idMod) {
   // Envía el ID_MOD al servidor al cargar la vista.
-  axios.post('http://localhost:1234/moderador_activo', { ID_Mod: session.$state.id})
+  axios.post('http://localhost:1234/moderador_activo', { ID_MOD: idMod })
     .then(response => {
       // Manejar la respuesta del servidor si es necesario.
     })
@@ -161,21 +145,16 @@ function stopChronometer() {
     clearInterval(intervalId.value);
     intervalId.value = null;
 
-    console.log("PONENCIA CONCLUIDA21: " + selectedIdTra.value)
+    console.log("SESION PREG CONCLUIDA: " + selectedIdTra.value)
+    if (ponencias.$state.total_salas == 0)
+    {
+      router.push({ name: 'Blank' })
+    } else
+    {
+      router.push({ name: 'cronometro' })
+    }
+    
 
-    axios.post('http://localhost:1234/desactivar_Sala', { ID_tra: selectedIdTra.value })
-      .then(response => {
-        return axios.post('http://localhost:1234/concluir_Ponencia', { ID_tra: selectedIdTra.value });
-      })
-      .then(response => {
-
-        ponencias.finalizarPonencia();
-        
-        router.push({ name: 'pase_de_lista' });
-      })
-      .catch(error => {
-        console.error('ERROR:', error);
-      });
   }
 }
 
@@ -214,81 +193,6 @@ function getRandomElements(array, numElements) {
   return shuffled.slice(0, numElements);
 }
 
-
-onMounted(async () => {
-  try {
-    const nombreMOD = session.$state.full_name;
-    //console.log('Nombre del mod obtenido:', nombreMOD);
-    
-
-    // Hacer una llamada al servidor para obtener las 15 ponencias asociadas al moderador
-    const ponenciasResponse = await axios.post<{ ponenciasL: string }[]>('http://localhost:1234/ponencias_del_moderador', {
-      Investigador: nombreMOD,
-    });
-    console.log('Ponencias BAJADAS BDD:', ponenciasResponse.data);
-    
-    // Obtener solo los valores de ID_TRA de las ponencias
-    const ponenciasIds = ponenciasResponse.data.map(ponencia => ponencia.ID_TRA);
-    console.log('PONENCIAS ID:', ponenciasIds);
-
-    // Obtener solo los valores de ID_TRA de las secciones de preguntas
-    //const seccionesPreguntas = Array.from({ length: 3 }, (_, index) => `Sección de Preguntas ${index + 1}`);
-
-
-    // Llamar a una acción en el store para organizar y dividir las ponencias
-    //ponencias.organizarYDividirPonencias(ponenciasIds);
-
-    // Imprimir el estado actual del store en la consola
-    console.log('Estado actual del ARREGLO PONENCIAS :', ponencias.$state.ponencias);
-
-
-    const shuffledPonencias = ponenciasResponse.data;
-    console.log('Ponencias obtenidas shufl:', shuffledPonencias);
-    //ponencias.organizarYDividirPonencias(shuffledPonencias);
-
-
-    console.log('Longitud después del for de las ponencias:', ponencias.$state.ponencias.length);
-
-    //const shuffledPonencias = ponenciasResponse.data;
-    console.log('Ponencias obtenidas shufl:', ponencias.$state.ponencias);
-    
-    console.log('Estado2 actual de las ponencias:', ponencias.$state.ponencias[0]);
-
-    //const idTraResponse = await axios.get<{ ID_Tra: string }[]>('http://localhost:1234/id_tras');
-    //const shuffledIdTraList = getRandomElements(idTraResponse.data, 7);
-
-    if(!ponencias.$state.inicializado)
-    {
-      ponencias.iniciar();
-      for (let i = 0; i < 15; i ++) 
-      {
-        ponencias.addPonencia(shuffledPonencias[i]['ID_TRA']);
-        console.log("NUEVO BLOQUE CREADO") 
-      | console.log(ponencias.$state.ponencias) 
-      }
-    }else
-    {
-      if(ponencias.$state.ponencias.length != 0)
-      {
-      selectedIdTra = ponencias.$state.ponencias[0];
-      console.log("PONENCIAS RESTANTES:" + ponencias.$state.ponencias);
-      }
-    }
- 
-    const constantValue = ponencias.$state.ponencias[0];
-
-    if (idTraList.value.length > 0) {
-      selectedIdTra.value = ponencias.$state.ponencias[0];
-      fetchData();
-    }
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-  selectedIdTra.value = ponencias.$state.ponencias[0];
-  console.log("VALOR UTILIZADO DE " + ponencias.$state.ponencias[0].ID_TRA + ": " + selectedIdTra.value )
-
-
-});
 
 const fetchData = async () => {
   try {
