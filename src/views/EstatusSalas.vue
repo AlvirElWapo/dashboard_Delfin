@@ -55,11 +55,10 @@
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <!-- Estatus handling -->
                   <div class="estatus">
-                    <p :class="{ 'text-gray': estado === 'Pendiente','text-green': estado === 'Abierta', 'text-red': estado === 'Cerrada' }">
+                    <p :class="{ 'text-green': estado === 'Abierta', 'text-red': estado === 'Cerrada' }">
                       {{ estado }}
                     </p>
                     <select class="desplegable" id="estado" v-model="estado">
-                      <option value="Pendiente">Pendiente</option>
                       <option value="Abierta">Abierta</option>
                       <option value="Cerrada">Cerrada</option>
                     </select>
@@ -131,14 +130,6 @@
   </div>
 
 
-
-
-
-
-
-
-
-
 </template>
   
 <script setup lang="ts">
@@ -153,7 +144,7 @@ interface User {
   // Example: Pais, Institucion, etc.
 }
 
-const estado = ref('Pendiente');
+const estado = ref('Cerrada');
 const allUsers = ref<User[]>([]);
 const activeUsers = ref<User[]>([]);
 const edificiosList = ref<{ UBICACION: string }[]>([]);
@@ -164,6 +155,7 @@ const mod_EmergenteSeleccionado = ref<{ MODERADOR: string, ID_Mod: string }>({ M
 const refreshData = async () => {
   await fetchData();
   await fetchData_Activos();
+  await fetch_mEMER();
 };
 
 onMounted(async () => {
@@ -196,6 +188,23 @@ onMounted(async () => {
   }
 });
 
+const fetch_mEMER= async () => {
+  try {
+    const posibles_mods_response= await axios.get<{ MODERADOR: string }[]>('http://localhost:1234/posibles_emergentes');
+    posiblesMods.value = posibles_mods_response.data;
+    console.log(posiblesMods.value);
+
+    if (posiblesMods.value.length > 0) {
+      mod_EmergenteSeleccionado.value.MODERADOR = posiblesMods.value[0].MODERADOR;
+      mod_EmergenteSeleccionado.value.ID_Mod = posiblesMods.value[0].ID_Mod;
+    }
+  } catch (error) {
+    console.error('Error fetching MODERADORES EMERGENTES data:', error);
+  }
+};
+
+
+
 const confirmarCambios = async (actualModerador,ID_Mod) => {
 console.log(`intentando cambiar ${actualModerador},${ID_Mod} POR ${mod_EmergenteSeleccionado.value.MODERADOR}, ${mod_EmergenteSeleccionado.value.ID_Mod}`);
   try {
@@ -204,6 +213,7 @@ console.log(`intentando cambiar ${actualModerador},${ID_Mod} POR ${mod_Emergente
       actualModerador: actualModerador,
       posibleModerador: mod_EmergenteSeleccionado.value
     });
+    enviarIdModAlServidor(mod_EmergenteSeleccionado.value.ID_Mod);
     console.log('Cambio realizado con éxito');
   } catch (error) {
     console.error('Error al realizar el cambio:', error);
@@ -272,12 +282,8 @@ const enviarIdModAlServidor = (idMod) =>
     .catch(error => {
       console.error('ERROR AL ENVIAR ID_MOD AL SERVIDOR:', error);
     });
+    refreshData();
 };
-
-
-
-
-
 </script>
 
   

@@ -122,7 +122,6 @@ export default {
   },
   setup() {
     const session = useGlobalSession();
-    console.log(session.tipo_de_usuario);
     return { session };
   },
 };

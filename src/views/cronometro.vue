@@ -63,21 +63,22 @@ const intervalId = ref<number | null>(null);
 
 onMounted(() => {
   // Cuando la vista se carga, obtener el ID_MOD y enviarlo al servidor automáticamente.
-  const idMod = obtenerIdMod(); 
-  enviarIdModAlServidor(idMod);
+  const idMod = session.$state.id; 
+  enviarIdModAlServidor(session.$state.id);
+  console.log("ID INICIADA SESION EN CRONOMETRO   " + session.$state.id)
 });
 
 // Función para obtener el ID_MOD (reemplázala con tu lógica real).
 function obtenerIdMod() {
+    console.log("OBTENIENDO DATOS -----------" + session.$state.id);
   const idMod = session.$state.id;
-  //console.log('ID_MOD obtenido:', idMod);  // Muestra el ID_MOD en la consola del navegador.
   return idMod;
 }
 
 // Función para enviar el ID_MOD al servidor.
 function enviarIdModAlServidor(idMod) {
   // Envía el ID_MOD al servidor al cargar la vista.
-  axios.post('http://localhost:1234/moderador_activo', { Id_Mod: idMod })
+  axios.post('http://localhost:1234/moderador_activo', { ID_Mod: session.$state.id})
     .then(response => {
       // Manejar la respuesta del servidor si es necesario.
     })

@@ -58,24 +58,10 @@
           <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Buscar Equipos</span>
         </router-link>
 
-        <router-link v-show="tipoUsuario == 'mauro'" class="routerlink v-show flex items-center px-6 py-2  duration-200"
-          :class="[$route.name === 'Dashboard' ? activeClass : inactiveClass]" to="/control_moderadores">
-          <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Control de Moderadores</span>
-        </router-link>
-
         <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200"
           :class="[$route.name === 'SEDES' ? activeClass : inactiveClass]" to="/busq_por_sede">
           <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Buscar Por Sede</span>
         </router-link>
-
-
-
-        <router-link v-show="tipoUsuario == 'mauro'" class="routerlink flex items-center px-6 py-2 duration-200 "
-          :class="[$route.name === 'Chart' ? activeClass : inactiveClass]" to="/Pase_de_lista_moderador">
-
-          <span class="mx-4"><font-awesome-icon class="icon" icon="fa-solid fa-chevron-right" /> Pase de Lista Mod.</span>
-        </router-link>
-
 
         <p class="banner banner_options pl-4 my-2 text-xs font-semibold text-gray-400">
           Opciones
