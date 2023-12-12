@@ -92,11 +92,10 @@ export default {
     };
   },
   methods: {
-    async login() {
+    async login() 
+    {
       try {
         const response = await axios.post('http://localhost:1234/login', this.userData);
-        console.log(response.data.success);
-        console.log(response.data);
         if (response.data.success) {
           const userData = response.data.user;
           this.userType = userData.user_type || 'moderador';
@@ -104,12 +103,18 @@ export default {
           session.setupSessions({ ...userData, user_type: this.userType });
 
           console.log("Session data:", session.$state);
-          if (this.userType === "moderador") {
-            router.push('/cronometro');
+
+          // Check if userType is 'moderador' and userData has 'sala'
+          if (this.userType === "moderador" && userData.sala) {
+            try {
+              await axios.post('http://localhost:1234/activar_sala', { id_sala: userData.sala });
+              router.push('/cronometro');
+            } catch (err) {
+              console.error('Error activating sala:', err);
+            }
           } else {
             router.push('/dashboard');
           }
-
         } else {
           console.log("Login failed");
         }
@@ -118,13 +123,15 @@ export default {
         console.log("ENVIANDO:" + this.userData.password)
         console.error('Login error:', error);
       }
+    }
+
+
     },
-  },
-  setup() {
-    const session = useGlobalSession();
-    return { session };
-  },
-};
+    setup() {
+      const session = useGlobalSession();
+      return { session };
+    },
+  };
 </script>
 
 

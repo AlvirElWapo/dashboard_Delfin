@@ -72,14 +72,14 @@ const truncatedTitulo = ref('');
 
 onMounted(() => {
   // Cuando la vista se carga, obtener el ID_MOD y enviarlo al servidor automáticamente.
-  const idMod = session.$state.id;
+  const idMod = session.$state.id; 
   enviarIdModAlServidor(session.$state.id);
   console.log("ID INICIADA SESION EN CRONOMETRO   " + session.$state.id)
 });
 
 // Función para obtener el ID_MOD (reemplázala con tu lógica real).
 function obtenerIdMod() {
-  console.log("OBTENIENDO DATOS -----------" + session.$state.id);
+    console.log("OBTENIENDO DATOS -----------" + session.$state.id);
   const idMod = session.$state.id;
   return idMod;
 }
@@ -87,7 +87,7 @@ function obtenerIdMod() {
 // Función para enviar el ID_MOD al servidor.
 function enviarIdModAlServidor(idMod) {
   // Envía el ID_MOD al servidor al cargar la vista.
-  axios.post('http://localhost:1234/moderador_activo', { ID_Mod: session.$state.id })
+  axios.post('http://localhost:1234/moderador_activo', { ID_Mod: session.$state.id})
     .then(response => {
       // Manejar la respuesta del servidor si es necesario.
     })
@@ -172,8 +172,8 @@ function stopChronometer() {
       .then(response => {
         ponencias.quitarTitulo();
         ponencias.finalizarPonencia();
-
-
+        
+        
         router.push({ name: 'pase_de_lista' });
       })
       .catch(error => {
@@ -187,7 +187,8 @@ function resetChronometer() {
   timer.value = selectedTime.value;
 }
 
-onMounted(() => {
+onMounted(() => 
+{
   resetChronometer();
   //obteneraTituloPonencia();
 });
@@ -226,14 +227,14 @@ function getRandomElements(array, numElements) {
 onMounted(async () => {
   try {
     const nombreMOD = session.$state.full_name;
-    //console.log('Nombre del mod obtenido:', nombreMOD);
-
+    console.log('Nombre del mod obtenido:', nombreMOD);
+    
 
     // Hacer una llamada al servidor para obtener las 15 ponencias asociadas al moderador
     const ponenciasResponse = await axios.post<{ ponenciasL: string }[]>('http://localhost:1234/ponencias_del_moderador', {
       Investigador: nombreMOD,
     });
-
+    
     console.log('Solicitando títulos:');
     const titulosPonencias = await axios.post<{ titulosPonencias: string }[]>('http://localhost:1234/get_titulos', {
       Investigador: nombreMOD,
@@ -245,42 +246,46 @@ onMounted(async () => {
       ID_TRA: titulosPonencias.data,
     });
     */
-
+    
     const titulo = ponencias.$state.titulos[0];
+    console.log("TITULO: " + titulo)
+    if (titulo) {
+      const maxLength = 125;
+      truncatedTitulo.value = titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
+    }
+    
+    const datosPonencias = ponenciasResponse.data;
+
+    const datosTitulos = titulosPonencias.data;
+
+    if(!ponencias.$state.inicializado)
+    {
+      ponencias.iniciar();
+      for (let i = 0; i < 15; i ++) 
+      {
+        ponencias.addPonencia(datosPonencias[i]['ID_TRA'], datosTitulos[i]['Titulo']);
+        ponencias.addTitulo(datosTitulos[i]['Titulo']);
+      }
+      const titulo = ponencias.$state.titulos[0];
     //console.log("TITULO: " + titulo)
     if (titulo) {
       const maxLength = 125;
       truncatedTitulo.value = titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
     }
-
-    const datosPonencias = ponenciasResponse.data;
-
-    const datosTitulos = titulosPonencias.data;
-
-    if (!ponencias.$state.inicializado) {
-      ponencias.iniciar();
-      for (let i = 0; i < 15; i++) {
-        ponencias.addPonencia(datosPonencias[i]['ID_TRA'], datosTitulos[i]['Titulo']);
-        ponencias.addTitulo(datosTitulos[i]['Titulo']);
-      }
-      const titulo = ponencias.$state.titulos[0];
-      //console.log("TITULO: " + titulo)
-      if (titulo) {
-        const maxLength = 125;
-        truncatedTitulo.value = titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
-      }
-    } else {
-      if (ponencias.$state.ponencias.length != 0) {
-        selectedIdTra = ponencias.$state.ponencias[0];
-        console.log("PONENCIAS RESTANTES:" + ponencias.$state.ponencias);
+    }else
+    {
+      if(ponencias.$state.ponencias.length != 0)
+      {
+      selectedIdTra = ponencias.$state.ponencias[0];
+      console.log("PONENCIAS RESTANTES:" + ponencias.$state.ponencias);
       }
     }
-
+ 
     const constantValue = ponencias.$state.ponencias[0];
 
     // Ahora ejecuta la lógica para truncar el título
-
-
+    
+    
 
     if (idTraList.value.length > 0) {
       selectedIdTra.value = ponencias.$state.ponencias[0];
@@ -290,7 +295,7 @@ onMounted(async () => {
     console.error('Error fetching data:', error);
   }
   selectedIdTra.value = ponencias.$state.ponencias[0];
-  console.log("PONENCIA ACTUAL: " + selectedIdTra.value)
+  console.log("PONENCIA ACTUAL: " + selectedIdTra.value )
 
 
 });
@@ -300,7 +305,7 @@ const fetchData = async () => {
   try {
     selectedIdTra.value = ponencias.$state.ponencias[0];
     //const selectedId = ponencias.$state.ponencias[0];
-    console.log("TÍTULO: " + selectedId.value)
+    console.log("TÍTULO: " + selectedId.value )
     if (selectedIdTra.value) {
       console.log('Selected ID_TRA titulo:', selectedIdTra.value);
       const response = await axios.post<User[]>('http://localhost:1234/get_titulo', {
@@ -314,6 +319,9 @@ const fetchData = async () => {
 };
 
 </script>
+
+
+
 
 <style scoped>
 .mainContainer {

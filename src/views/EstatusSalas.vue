@@ -24,9 +24,6 @@
 
 
 <div v-if="visibleTables.confirmedModerators">
-<div class="update-button-container">
-    <button @click="refreshData" class="update-button">Actualizar Datos</button>
-  </div>
 
 <!-- TABLA ACTIVOS -->
   <div class="mainContainer">
@@ -62,7 +59,7 @@
                   </div>
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  {{user.Sala}}
+                  {{user.Salon}}
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   {{user.Area_Deseada}} 
@@ -125,15 +122,12 @@
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <div class="text-sm font-medium leading-5 text-gray-900">
                     {{ user.Moderador}}
-                    {{ user.Moderador}}
                   </div>
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  {{user.Sala}}
-                  {{user.Sala}}
+                  {{user.Salon}}
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  {{user.Area_Deseada}} 
                   {{user.Area_Deseada}} 
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
@@ -179,6 +173,7 @@ interface User {
   Moderador: string;
   Sala: string;
   Area_Deseada: string;
+  Salon: string;
   // Add other fields from your backend data structure
   // Example: Pais, Institucion, etc.
 }
