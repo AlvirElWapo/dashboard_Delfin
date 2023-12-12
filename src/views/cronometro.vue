@@ -2,23 +2,23 @@
   <div class="mainContainer">
     <div class="mainContainer_title">
 
-      <div class="bloque_title">
-        BLOQUE:
+      <div class="flex-container">
+        <div class="bloque_title">
+          BLOQUE:
 
-        {{ ponencias.$state.numero_bloque }}
+          {{ ponencias.$state.numero_bloque }}
+        </div>
+        <div class="equipo_title">
+          <label for="ID_Tra">
+            NO. DE EQUIPO A EVALUAR:
+          </label>
+
+            {{ ponencias.$state.numero_equipo }}
+          
+        </div>
       </div>
-      <div class="equipo_title">
-      <label for="ID_Tra">
-        EQUIPO A EVALUAR:
-      </label>
-
-        {{ ponencias.$state.ponencias[0] }}
-        
-          </div>
 
 
-
-      <br>
 
       <div class="proyecto_title">
         <font-awesome-icon class="icon" icon="fa-solid fa-star" />  Proyecto:
@@ -28,7 +28,6 @@
         </span>
       </div>
 
-      <br>
 
       <br>
       <p class="text-center">
@@ -353,6 +352,8 @@ const fetchData = async () => {
 .mainContainer_title {
   text-align: left;
   font-size: 1.6vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
 }
 
 .mainContainer_title select {
@@ -408,6 +409,7 @@ const fetchData = async () => {
   align-items: center;
   height: 70vh;
   transition: all 1s ease;
+  
 }
 
 select {
@@ -464,6 +466,8 @@ select {
 .bloque_title {
   color: var(--main-orange);
   font-weight: bold;
+  margin-right: 10vw;
+  margin-left: 12vw;
 }
 
 .equipo_title{
@@ -473,5 +477,10 @@ select {
 
 .proyecto_title{
   font-weight: bold;
+  text-align: center;
+}
+
+.flex-container {
+  display: flex;
 }
 </style>

@@ -249,6 +249,7 @@ const printAsistencia = async () => {
       if (ponencias.finSala()){
           router.push({ name: 'sesion_depre' })
           ponencias.$state.numero_bloque ++;
+          ponencias.$state.numero_equipo ++;
         } else
         {
           router.push({ name: 'cronometro' });

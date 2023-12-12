@@ -125,15 +125,12 @@
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <div class="text-sm font-medium leading-5 text-gray-900">
                     {{ user.Moderador}}
-                    {{ user.Moderador}}
                   </div>
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   {{user.Sala}}
-                  {{user.Sala}}
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  {{user.Area_Deseada}} 
                   {{user.Area_Deseada}} 
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
