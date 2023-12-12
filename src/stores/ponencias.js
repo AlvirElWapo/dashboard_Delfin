@@ -11,6 +11,7 @@ export const usePonenciasGlobales = defineStore('ponenciasGlobales', {
     total_salas: 15,
     total_titulos: 15,
     numero_bloque: 1,
+    numero_equipo: 1,
   }),
   actions: {
     addPonencia(ponencia) 
@@ -25,6 +26,7 @@ export const usePonenciasGlobales = defineStore('ponenciasGlobales', {
       if (this.$state.ponencias.length > 0) {
         this.$state.finalizada = this.$state.ponencias.shift();
       }
+      this.$state.numero_equipo = this.$state.numero_equipo + 1;
     },
     quitarTitulo() {
       if (this.$state.titulos.length > 0) {

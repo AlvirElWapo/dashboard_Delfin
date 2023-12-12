@@ -125,7 +125,11 @@
                   </div>
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+<<<<<<< HEAD
                   {{user.Salon}}
+=======
+                  {{user.Sala}}
+>>>>>>> refs/remotes/origin/master
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   {{user.Area_Deseada}} 

@@ -106,14 +106,7 @@
   </div>
 </td>
 
-<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-  <div class="text-sm font-medium leading-5 text-gray-900">
-    <div v-for="(ponente, index) in u.Ponentes" :key="index">
-      {{ ponente}}
-      <span v-if="index !== u.Ponentes.length - 1"><br /></span>
-    </div>
-  </div>
-</td>
+
 
 
 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">

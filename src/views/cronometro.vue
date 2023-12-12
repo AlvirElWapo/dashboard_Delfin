@@ -2,23 +2,23 @@
   <div class="mainContainer">
     <div class="mainContainer_title">
 
-      <div class="bloque_title">
-        BLOQUE:
+      <div class="flex-container">
+        <div class="bloque_title">
+          BLOQUE:
 
-        {{ ponencias.$state.numero_bloque }}
+          {{ ponencias.$state.numero_bloque }}
+        </div>
+        <div class="equipo_title">
+          <label for="ID_Tra">
+            NO. DE EQUIPO A EVALUAR:
+          </label>
+
+            {{ ponencias.$state.numero_equipo }}
+          
+        </div>
       </div>
-      <div class="equipo_title">
-      <label for="ID_Tra">
-        EQUIPO A EVALUAR:
-      </label>
-
-        {{ ponencias.$state.ponencias[0] }}
-        
-          </div>
 
 
-
-      <br>
 
       <div class="proyecto_title">
         <font-awesome-icon class="icon" icon="fa-solid fa-star" />  Proyecto:
@@ -28,7 +28,6 @@
         </span>
       </div>
 
-      <br>
 
       <br>
       <p class="text-center">
@@ -66,6 +65,7 @@ const timer = ref(0);
 const selectedTime = ref(1);
 const isRunning = ref(false);
 const intervalId = ref<number | null>(null);
+const noPonentes2 = ref(0);
 
 // Método computado para truncar el título
 const truncatedTitulo = ref('');
@@ -172,9 +172,24 @@ function stopChronometer() {
       .then(response => {
         ponencias.quitarTitulo();
         ponencias.finalizarPonencia();
+<<<<<<< HEAD
         
         
         router.push({ name: 'pase_de_lista' });
+=======
+           
+        if(noPonentes2.value == 1)
+        {
+          router.push({ name: 'asist_automatica' });
+          console.log("UN PONENTE")
+        }
+        else
+        {
+          router.push({ name: 'pase_de_lista' });
+        }
+        
+        //router.push({ name: 'pase_de_lista' });
+>>>>>>> refs/remotes/origin/master
       })
       .catch(error => {
         console.error('ERROR:', error);
@@ -212,9 +227,14 @@ interface Titutlos {
   titulo: string[];
 }
 
+interface NoPonentes {
+  noPonentes: string[];
+}
+
 const users = ref<User[]>([]);
 const ponenciasL = ref<Ponencias[]>([]);
 const titulosPonencias = ref<Titutlos[]>([]);
+const noPonentes = ref<NoPonentes[]>([]);
 const idTraList = ref<{ ID_Tra: string }[]>([]);
 const selectedIdTra = ref<string | null>(null);
 
@@ -239,14 +259,27 @@ onMounted(async () => {
     const titulosPonencias = await axios.post<{ titulosPonencias: string }[]>('http://localhost:1234/get_titulos', {
       Investigador: nombreMOD,
     });
+
+        
     console.log('Títulos BAJADOS BDD:', titulosPonencias.data);
     console.log('Ponencias BAJADAS BDD:', ponenciasResponse.data);
-    /*
-    const titulosPonencias = await axios.post<{ titulosPonencias: string }[]>('http://localhost:1234/get_titulo', {
-      ID_TRA: titulosPonencias.data,
+
+    //Asignar a id_traa el valor de la primera ponencia,si es indefinido, asignarle el valor de ponenciasResponse.data[0]['ID_TRA'], a través de un operador ternario
+    const id_traa = ponencias.$state.ponencias[0] ? ponencias.$state.ponencias[0] : ponenciasResponse.data[0]['ID_TRA'];
+    console.log('ID_TRA Ponencia en [0]: '+id_traa);
+    const noPonentesResponse = await axios.post<{ noPonentes: string }[]>('http://localhost:1234/numero_ponentes', {
+      ID_TRA: id_traa,
     });
+<<<<<<< HEAD
     */
     
+=======
+    noPonentes2.value = noPonentesResponse.data[0]['NOPONENTES'];
+    console.log('Número de ponentes:', noPonentes2.value);
+    
+    
+
+>>>>>>> refs/remotes/origin/master
     const titulo = ponencias.$state.titulos[0];
     console.log("TITULO: " + titulo)
     if (titulo) {
@@ -272,6 +305,27 @@ onMounted(async () => {
       const maxLength = 125;
       truncatedTitulo.value = titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
     }
+<<<<<<< HEAD
+=======
+
+    const datosPonencias = ponenciasResponse.data;
+
+    const datosTitulos = titulosPonencias.data;
+
+    if (!ponencias.$state.inicializado) {
+      ponencias.iniciar();
+      for (let i = 0; i < 15; i ++) 
+      {
+        ponencias.addPonencia(datosPonencias[i]['ID_TRA']);
+        ponencias.addTitulo(datosTitulos[i]['Titulo']);
+      }
+      const titulo = ponencias.$state.titulos[0];
+      //console.log("TITULO: " + titulo)
+      if (titulo) {
+        const maxLength = 125;
+        truncatedTitulo.value = titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
+      }
+>>>>>>> refs/remotes/origin/master
     }else
     {
       if(ponencias.$state.ponencias.length != 0)
@@ -283,8 +337,11 @@ onMounted(async () => {
  
     const constantValue = ponencias.$state.ponencias[0];
 
+<<<<<<< HEAD
     // Ahora ejecuta la lógica para truncar el título
     
+=======
+>>>>>>> refs/remotes/origin/master
     
 
     if (idTraList.value.length > 0) {
@@ -337,6 +394,8 @@ const fetchData = async () => {
 .mainContainer_title {
   text-align: left;
   font-size: 1.6vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
 }
 
 .mainContainer_title select {
@@ -392,6 +451,7 @@ const fetchData = async () => {
   align-items: center;
   height: 70vh;
   transition: all 1s ease;
+  
 }
 
 select {
@@ -448,6 +508,8 @@ select {
 .bloque_title {
   color: var(--main-orange);
   font-weight: bold;
+  margin-right: 10vw;
+  margin-left: 12vw;
 }
 
 .equipo_title{
@@ -457,5 +519,10 @@ select {
 
 .proyecto_title{
   font-weight: bold;
+  text-align: center;
+}
+
+.flex-container {
+  display: flex;
 }
 </style>
