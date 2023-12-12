@@ -135,22 +135,28 @@ import router from '../router/index.ts';
 
 
 function stopChronometer() {
-
   if (isRunning.value) {
     isRunning.value = false;
     clearInterval(intervalId.value);
     intervalId.value = null;
 
-    console.log("SESION PREG CONCLUIDA: " + selectedIdTra.value)
-    if (ponencias.$state.total_salas == 0)
-    {
-      router.push({ name: 'Blank' })
-    } else
-    {
-      router.push({ name: 'cronometro' })
+    console.log("SESION PREG CONCLUIDA: " + selectedIdTra.value);
+    if (ponencias.$state.total_salas == 0) {
+      // Assuming selectedIdTra.value holds the correct ID of the sala
+      
+      //await axios.post('http://localhost:1234/activar_s_global', { id_sala: userData.sala });
+      axios.post('http://localhost:1234/finalizar_sala', { id_sala: session.$state.full_name})
+        .then(response => {
+          console.log('Sala concluida con éxito');
+          router.push({ name: 'Blank' });
+        })
+        .catch(error => {
+          console.error(`Error al finalizar sala utilizando: ${session.$state.full_name} `, error);
+          router.push({ name: 'Blank' });
+        });
+    } else {
+      router.push({ name: 'cronometro' });
     }
-    
-
   }
 }
 
@@ -161,6 +167,7 @@ function resetChronometer() {
 
 onMounted(() => 
 {
+  console.log("SALA FINALIZADA::::::::::::::::::" + session.$state.full_name)
   resetChronometer();
 });
 

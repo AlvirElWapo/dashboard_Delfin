@@ -104,10 +104,10 @@ export default {
 
           console.log("Session data:", session.$state);
 
-          // Check if userType is 'moderador' and userData has 'sala'
           if (this.userType === "moderador" && userData.sala) {
             try {
-              await axios.post('http://localhost:1234/activar_sala', { id_sala: userData.sala });
+              console.log("CHEQUEO PARAMETRO -------------------" + userData.sala);
+              await axios.post('http://localhost:1234/activar_s_global', { id_sala: userData.sala });
               router.push('/cronometro');
             } catch (err) {
               console.error('Error activating sala:', err);

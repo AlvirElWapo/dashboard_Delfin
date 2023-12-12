@@ -21,6 +21,7 @@ import CargarExcel from "../views/CargarExcel.vue"
 import control_moderadores from "../views/control_moderadores.vue";
 import ses_preg from "../views/Preguntas.vue";
 import AsistenciaAutom from "../views/AsistenciaAutom.vue";
+import PONENCIA_NO_AUTORIZADA from "../views/PONENCIA_NO_AUTORIZADA.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -28,6 +29,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/no_autorizado",
+    name: "no_autorizado",
+    component: PONENCIA_NO_AUTORIZADA,
   },
   {
     path: "/estatus_salas",

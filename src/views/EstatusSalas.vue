@@ -32,6 +32,10 @@
     <div class="flex flex-col mt-8">
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+
+
+
+
           <table class="min-w-full">
             <thead>
               <tr>
@@ -46,7 +50,7 @@
                   Area
                 </th>
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                  Estatus
+                  Autorización Inicio
                 </th>
               </tr>
             </thead>
@@ -64,21 +68,67 @@
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   {{user.Area_Deseada}} 
                 </td>
+
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <!-- Estatus handling -->
-                  <div class="estatus">
-                    <p :class="{ 'text-green': estado === 'Abierta', 'text-red': estado === 'Cerrada' }">
-                      {{ estado }}
-                    </p>
-                    <select class="desplegable" id="estado" v-model="estado">
-                      <option value="Abierta">Abierta</option>
-                      <option value="Cerrada">Cerrada</option>
-                    </select>
-                  </div>
+                    <button @click="authorizeSala(user.Sala, user.ID_Mod)" class="authorize-button">
+                      Autorizar Sala
+                    </button>
+                  </td>
+
+              </tr>
+            </tbody>
+          </table>
+
+
+<!-- Table for Salas Autorizadas -->
+<div v-if="visibleTables.authorizedSalas">
+  <div class="mainContainer">
+    <label>SALAS AUTORIZADAS:</label>
+    <div class="flex flex-col mt-8">
+      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+          <table class="min-w-full">
+            <thead>
+              <tr>
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                  Moderador
+                </th>
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                  Sala
+                </th>
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                  Area
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              <tr v-for="(sala, index) in authorizedSalas" :key="index">
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                  {{ sala.Moderador }}
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                  {{ sala.Sala }}
+                </td>
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                  {{ sala.Area_Deseada }}
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
         </div>
       </div>
     </div>
@@ -125,11 +175,7 @@
                   </div>
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-<<<<<<< HEAD
-                  {{user.Salon}}
-=======
                   {{user.Sala}}
->>>>>>> refs/remotes/origin/master
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   {{user.Area_Deseada}} 
@@ -331,6 +377,21 @@ const visibleTables = reactive({
 const toggleTable = (tableName) => {
   visibleTables[tableName] = !visibleTables[tableName];
 };
+
+const authorizeSala = async (salaId, moderadorId) => {
+  console.log(`Authorizing sala: ${salaId} for Moderador ID: ${moderadorId}`);
+  try {
+    await axios.post('http://localhost:1234/autorizar_sala', { id_sala: salaId });
+    console.log('################### DATA AUTORIZADA UTILIZANDO: ' + salaId);
+    // Optional: Refresh data or update UI accordingly
+    refreshData();
+  } catch (error) {
+    console.error('Error authorizing sala:', error);
+  }
+};
+
+
+
 </script>
 
   
