@@ -2,9 +2,11 @@
   <div class="mainContainer">
       <div class="mainContainer_title">
           <label for="idTra">
-            SELECCION DE EQUIPO: 
+            Proyecto: 
           </label>
-          {{ ponencias.$state.finalizada }}
+          <span>
+            {{ truncatedTitulo }}
+          </span>
     </div>
     <div class="mt-8"></div>
     <div class="flex flex-col mt-8">
@@ -102,14 +104,7 @@
   </div>
 </td>
 
-<td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-  <div class="text-sm font-medium leading-5 text-gray-900">
-    <div v-for="(ponente, index) in u.Ponentes" :key="index">
-      {{ ponente}}
-      <span v-if="index !== u.Ponentes.length - 1"><br /></span>
-    </div>
-  </div>
-</td>
+
 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
   <div class="text-sm font-medium leading-5 text-gray-900">
     <div v-for="(id, index) in u.ID_pons" :key="index">
@@ -167,9 +162,17 @@ const users = ref<User[]>([]);
 const idTraList = ref<{ ID_Tra: string }[]>([]);
 const selectedIdTra = ref<string | null>(null);
 
+const truncatedTitulo = ref('');
 
 import { usePonenciasGlobales } from '../stores/ponencias.js';
 const ponencias = usePonenciasGlobales();
+
+const titulo = ponencias.$state.titulo_finalizado;
+    //console.log("TITULO: " + titulo)
+    if (titulo) {
+      const maxLength = 125;
+      truncatedTitulo.value = titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
+    }
 
 onMounted(async () => {
   try {

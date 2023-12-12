@@ -66,6 +66,7 @@ const timer = ref(0);
 const selectedTime = ref(1);
 const isRunning = ref(false);
 const intervalId = ref<number | null>(null);
+const noPonentes2 = ref(0);
 
 // Método computado para truncar el título
 const truncatedTitulo = ref('');
@@ -172,9 +173,18 @@ function stopChronometer() {
       .then(response => {
         ponencias.quitarTitulo();
         ponencias.finalizarPonencia();
-
-
-        router.push({ name: 'pase_de_lista' });
+           
+        if(noPonentes2.value == 1)
+        {
+          router.push({ name: 'asist_automatica' });
+          console.log("UN PONENTE")
+        }
+        else
+        {
+          router.push({ name: 'pase_de_lista' });
+        }
+        
+        //router.push({ name: 'pase_de_lista' });
       })
       .catch(error => {
         console.error('ERROR:', error);
@@ -211,9 +221,14 @@ interface Titutlos {
   titulo: string[];
 }
 
+interface NoPonentes {
+  noPonentes: string[];
+}
+
 const users = ref<User[]>([]);
 const ponenciasL = ref<Ponencias[]>([]);
 const titulosPonencias = ref<Titutlos[]>([]);
+const noPonentes = ref<NoPonentes[]>([]);
 const idTraList = ref<{ ID_Tra: string }[]>([]);
 const selectedIdTra = ref<string | null>(null);
 
@@ -238,13 +253,21 @@ onMounted(async () => {
     const titulosPonencias = await axios.post<{ titulosPonencias: string }[]>('http://localhost:1234/get_titulos', {
       Investigador: nombreMOD,
     });
+
+        
     console.log('Títulos BAJADOS BDD:', titulosPonencias.data);
     console.log('Ponencias BAJADAS BDD:', ponenciasResponse.data);
-    /*
-    const titulosPonencias = await axios.post<{ titulosPonencias: string }[]>('http://localhost:1234/get_titulo', {
-      ID_TRA: titulosPonencias.data,
+
+    //Asignar a id_traa el valor de la primera ponencia,si es indefinido, asignarle el valor de ponenciasResponse.data[0]['ID_TRA'], a través de un operador ternario
+    const id_traa = ponencias.$state.ponencias[0] ? ponencias.$state.ponencias[0] : ponenciasResponse.data[0]['ID_TRA'];
+    console.log('ID_TRA Ponencia en [0]: '+id_traa);
+    const noPonentesResponse = await axios.post<{ noPonentes: string }[]>('http://localhost:1234/numero_ponentes', {
+      ID_TRA: id_traa,
     });
-    */
+    noPonentes2.value = noPonentesResponse.data[0]['NOPONENTES'];
+    console.log('Número de ponentes:', noPonentes2.value);
+    
+    
 
     const titulo = ponencias.$state.titulos[0];
     //console.log("TITULO: " + titulo)
@@ -259,8 +282,9 @@ onMounted(async () => {
 
     if (!ponencias.$state.inicializado) {
       ponencias.iniciar();
-      for (let i = 0; i < 15; i++) {
-        ponencias.addPonencia(datosPonencias[i]['ID_TRA'], datosTitulos[i]['Titulo']);
+      for (let i = 0; i < 15; i ++) 
+      {
+        ponencias.addPonencia(datosPonencias[i]['ID_TRA']);
         ponencias.addTitulo(datosTitulos[i]['Titulo']);
       }
       const titulo = ponencias.$state.titulos[0];
@@ -269,18 +293,18 @@ onMounted(async () => {
         const maxLength = 125;
         truncatedTitulo.value = titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
       }
-    } else {
-      if (ponencias.$state.ponencias.length != 0) {
-        selectedIdTra = ponencias.$state.ponencias[0];
-        console.log("PONENCIAS RESTANTES:" + ponencias.$state.ponencias);
+    }else
+    {
+      if(ponencias.$state.ponencias.length != 0)
+      {
+      selectedIdTra = ponencias.$state.ponencias[0];
+      console.log("PONENCIAS RESTANTES:" + ponencias.$state.ponencias);
       }
     }
 
     const constantValue = ponencias.$state.ponencias[0];
 
-    // Ahora ejecuta la lógica para truncar el título
-
-
+    
 
     if (idTraList.value.length > 0) {
       selectedIdTra.value = ponencias.$state.ponencias[0];

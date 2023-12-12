@@ -2,7 +2,7 @@
   <div class="mainContainer">
     <div class="mainContainer_title">
 
-<h1>SESION DE PREGUNTAS</h1>
+<h1 >SESIÓN DE PREGUNTAS</h1>
 
 
 
@@ -18,23 +18,19 @@
 
       <br>
       <p class="text-center">
-        Al dar click en el botón <span style="color:green; font-size:1.5em"><b>Iniciar</b></span>, se dará por iniciado el
-        bloque de 5 ponencias aleatorias.
+        Al dar click en el botón <span style="color:green; font-size:1.5em"><b>Iniciar</b></span>, se dará 
+        por iniciada la sesión de preguntas
       </p>
-      <b>
-        <p class="text-center" style="color:red">IMPORTANTE!
-          EL BOTON PARAR, DARÁ POR TERMINADA LA SESIÓN Y SERÁ IMPOSIBLE CONTINUAR</p>
-      </b>
+      
 
     </div>
 
     <div class="container">
 
-      <div class="font-medium text-2xl">{{ formattedTime }}</div>
+      <div class="font-medium">{{ formattedTime }}</div>
 
       <div class="mt-3 space-x-8">
         <button @click="startChronometer" :disabled="isRunning" class="button btn-primary">Iniciar</button>
-        <button @click="cancelar_ponencia" :disabled="!isRunning" class="button btn-danger">Parar</button>
       </div>
     </div>
   </div>

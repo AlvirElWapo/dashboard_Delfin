@@ -20,6 +20,8 @@ import EstatusSalas from "../views/EstatusSalas.vue"
 import CargarExcel from "../views/CargarExcel.vue"
 import control_moderadores from "../views/control_moderadores.vue";
 import ses_preg from "../views/Preguntas.vue";
+import AsistenciaAutom from "../views/AsistenciaAutom.vue";
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -111,6 +113,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/sesion_depre",
     name: "sesion_depre",
     component: ses_preg,
+  },
+  {
+    path: "/asist_automatica",
+    name: "asist_automatica",
+    component: AsistenciaAutom,
   },
   {
     path: '/',
