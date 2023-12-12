@@ -253,7 +253,7 @@ onMounted(async () => {
     const titulo = ponencias.$state.titulos[0];
     //console.log("TITULO: " + titulo)
     if (titulo) {
-      const maxLength = 50;
+      const maxLength = 125;
       truncatedTitulo.value = titulo.length > maxLength ? titulo.substring(0, maxLength) + '...' : titulo;
     }
     
