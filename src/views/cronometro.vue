@@ -173,7 +173,7 @@ function stopChronometer() {
         ponencias.quitarTitulo();
         ponencias.finalizarPonencia();
            
-        if(noPonentes.value == 1)
+        if(noPonentes2.value == 1)
         {
           router.push({ name: 'asist_automatica' });
           console.log("UN PONENTE")

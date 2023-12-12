@@ -142,10 +142,8 @@ function stopChronometer() {
 
     console.log("SESION PREG CONCLUIDA: " + selectedIdTra.value);
     if (ponencias.$state.total_salas == 0) {
-      // Assuming selectedIdTra.value holds the correct ID of the sala
-      
-      //await axios.post('http://localhost:1234/activar_s_global', { id_sala: userData.sala });
-      axios.post('http://localhost:1234/finalizar_sala', { id_sala: session.$state.full_name})
+      // Here we use the moderator's name to finalize the sala
+      axios.post('http://localhost:1234/finalizar_sala', { moderador: session.$state.full_name })
         .then(response => {
           console.log('Sala concluida con éxito');
           router.push({ name: 'Blank' });
